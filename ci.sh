@@ -1,14 +1,13 @@
 #!/bin/bash
-
-index_version=S1
-chart_version=S2
+# Declare version of index.yaml and Chart.yaml
+index_version=0
+chart_version=0
 
 if [ ! -f /hosting/index.yml ]; then
   helm repo index hosting
 fi
 
 # Get the value "version" of the chargefuze entry in index.yaml
-
 yq '.entries.chargefuze[0].version' hosting/index.yaml > index_version
 
 #get the "version" of chargefuze/Chart.yaml

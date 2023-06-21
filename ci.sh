@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 # Declare version of index.yaml and Chart.yaml
-index_version=0.1.0
-chart_version=0.1.0
+INDEX_VERSION=0.1.0
+CHART_VERSION=0.1.0
 
 if [ ! -f /hosting/index.yml ]; then
   helm repo index hosting
@@ -14,12 +14,12 @@ if ! [ -x "$(command -v yq)" ]; then
 fi
 
 # Get the value "version" of the chargefuze entry in index.yaml
-yq '.entries.chargefuze[0].version' hosting/index.yaml > index_version
+yq '.entries.chargefuze[0].version' hosting/index.yaml > INDEX_VERSION
 
 #get the "version" of chargefuze/Chart.yaml
-yq '.version' chargefuze/Chart.yaml > chart_version
+yq '.version' chargefuze/Chart.yaml > CHART_VERSION
 
-if [ "$chart_version" > "$index_version" ]; then
+if [ "$CHART_VERSION" > "$INDEX_VERSION" ]; then
   echo "New version found"
   # Create new version packaged chart in hosting
   helm package chargefuze -d ./hosting

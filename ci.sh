@@ -28,5 +28,5 @@ if [ "$CHART_VERSION" \> "$INDEX_VERSION" ]; then
   # Commit and push the changes
   git add .
   git commit -m "New version update"
-  git push origin HEAD
+  git push
 fi

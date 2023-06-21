@@ -7,6 +7,12 @@ if [ ! -f /hosting/index.yml ]; then
   helm repo index hosting
 fi
 
+# Make sure that yq is installed
+if ! [ -x "$(command -v yq)" ]; then
+  apt install yq -y
+  apt install yj -y
+fi
+
 # Get the value "version" of the chargefuze entry in index.yaml
 yq '.entries.chargefuze[0].version' hosting/index.yaml > index_version
 

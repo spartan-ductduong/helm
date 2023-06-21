@@ -9,8 +9,7 @@ fi
 
 # Make sure that yq is installed
 if ! [ -x "$(command -v yq)" ]; then
-  sudo apt install yq -y
-  sudo apt install yj -y
+  sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 fi
 
 # Get the value "version" of the chargefuze entry in index.yaml

@@ -2,6 +2,7 @@
 # Declare version of index.yaml and Chart.yaml
 INDEX_VERSION=0.1.0
 CHART_VERSION=0.1.0
+PROJECT_NAME=chargefuze
 
 if [ ! -f /hosting/index.yml ]; then
   helm repo index hosting
@@ -14,12 +15,11 @@ if ! [ -x "$(command -v yq)" ]; then
 fi
 
 # Get the value "version" of the chargefuze entry in index.yaml
-yq '.entries.chargefuze[0].version' hosting/index.yaml > INDEX_VERSION
-
+INDEX_VERSION=$(yq '.entries.chargefuze' hosting/index.yaml  | grep "version"| sort -r|head -n 1|yq '.version')
 #get the "version" of chargefuze/Chart.yaml
-yq '.version' chargefuze/Chart.yaml > CHART_VERSION
+CHART_VERSION=$( yq '.version' chargefuze/Chart.yaml ) 
 
-if [ "$CHART_VERSION" > "$INDEX_VERSION" ]; then
+if [ "$CHART_VERSION" \> "$INDEX_VERSION" ]; then
   echo "New version found"
   # Create new version packaged chart in hosting
   helm package chargefuze -d ./hosting
@@ -28,5 +28,5 @@ if [ "$CHART_VERSION" > "$INDEX_VERSION" ]; then
   # Commit and push the changes
   git add .
   git commit -m "New version update"
-  git push
+  git push origin HEAD
 fi

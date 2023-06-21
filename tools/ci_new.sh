@@ -9,8 +9,8 @@ fi
 
 # Make sure that yq is installed
 if ! [ -x "$(command -v yq)" ]; then
-  apt install yq -y
-  apt install yj -y
+  sudo apt install yq -y
+  sudo apt install yj -y
 fi
 
 # Get the value "version" of the chargefuze entry in index.yaml

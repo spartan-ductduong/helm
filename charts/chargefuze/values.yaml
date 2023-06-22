@@ -10,13 +10,16 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+containerPort: 8080
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -39,6 +42,8 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  protocol: TCP
+  name: http
 
 ingress:
   enabled: false
@@ -55,6 +60,21 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+livenessProbe: {}
+  # httpGet:
+  #   path: /health
+  #   port: 80
+  # initialDelaySeconds: 3
+  # timeoutSeconds: 3
+  # failureThreshold: 6
+readinessProbe: {}
+  # httpGet:
+  #   path: /health
+  #   port: 80
+  # initialDelaySeconds: 3
+  # timeoutSeconds: 3
+  # failureThreshold: 6
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -80,3 +100,36 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+testConnection: 
+  enabled: false
+
+secret:
+  asFile:
+    enabled: false
+    mountPath: "/data/config"
+    data: {}
+      # secret.txt: SECRET_FILE_AS_BASE64
+  asEnv:
+    enabled: false
+    data: {}
+      # SECRET_NAME: SECRET_NAME_AS_BASE64
+
+configMap:
+  asFile:
+    enabled: false
+    mountPath: "/data/config"
+    data: {}
+      # nginx.conf: |
+      #   server {
+      #       location / {
+      #           root /data/www;
+      #       }
+      #       location /images/ {
+      #           root /data;
+      #       }
+      #   }
+  asEnv:
+    enabled: false
+    data: {}
+      # SERVICE_NAME: nginx

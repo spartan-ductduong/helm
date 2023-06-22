@@ -1,0 +1,21 @@
+{{- if .Values.configMap.asFile.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "chargefuze.configMapAsFile" . }}
+  labels:
+    {{- include "chargefuze.labels" . | nindent 4 }}
+data:
+  {{- toYaml .Values.configMap.asFile.data | nindent 2 }}
+{{- end }}
+---
+{{- if .Values.configMap.asEnv.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "chargefuze.configMapAsEnv" . }}
+  labels:
+    {{- include "chargefuze.labels" . | nindent 4 }}
+data:
+  {{- toYaml .Values.configMap.asEnv.data | nindent 2 }}
+{{- end }}

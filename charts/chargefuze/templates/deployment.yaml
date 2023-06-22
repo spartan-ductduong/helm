@@ -31,22 +31,40 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ .Values.containerPort | default 80 }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+          {{- if .Values.livenessProbe }}
+          livenessProbe: {{- toYaml .Values.livenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.readinessProbe }}
+          readinessProbe: {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          envFrom:
+            {{- if .Values.secret.asEnv.enabled }}
+            - secretRef:
+                name: {{ include "chargefuze.secretAsEnv" . }}
+            {{- end }}
+            {{- if .Values.configMap.asEnv.enabled }}
+            - configMapRef:
+                name: {{ include "chargefuze.configMapAsEnv" . }}
+            {{- end }}
+          volumeMounts:
+          {{- if .Values.secret.asFile.enabled }}
+            - name: {{ include "chargefuze.secretAsFile" . }}
+              readOnly: true
+              mountPath: {{ .Values.secret.asFile.mountPath | quote }}
+          {{- end }}
+          {{- if .Values.configMap.asFile.enabled }}
+            - name: {{ include "chargefuze.configMapAsFile" . }}
+              readOnly: true
+              mountPath: {{ .Values.configMap.asFile.mountPath | quote }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -58,4 +76,15 @@ spec:
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+      {{- if .Values.secret.asFile.enabled }}
+        - name: {{ include "chargefuze.secretAsFile" . }}
+          secret:
+            secretName: {{ include "chargefuze.secretAsFile" . }}
+      {{- end }}
+      {{- if .Values.configMap.asFile.enabled }}
+        - name: {{ include "chargefuze.configMapAsFile" . }}
+          secret:
+            secretName: {{ include "chargefuze.configMapAsFile" . }}
       {{- end }}

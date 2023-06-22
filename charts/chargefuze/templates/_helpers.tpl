@@ -60,3 +60,32 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Secret as files
+*/}}
+{{- define "chargefuze.secretAsFile" -}}
+{{- printf "%s-%s" (include "chargefuze.fullname" .) "secret-as-file" }}
+{{- end }}
+
+{{/*
+Secret as environment variables
+*/}}
+{{- define "chargefuze.secretAsEnv" -}}
+{{- printf "%s-%s" (include "chargefuze.fullname" .) "secret-as-env" }}
+{{- end }}
+
+{{/*
+ConfigMap as files
+*/}}
+{{- define "chargefuze.configMapAsFile" -}}
+{{- printf "%s-%s" (include "chargefuze.fullname" .) "cm-as-file" }}
+{{- end }}
+
+{{/*
+ConfigMap as files
+*/}}
+{{- define "chargefuze.configMapAsEnv" -}}
+{{- printf "%s-%s" (include "chargefuze.fullname" .) "cm-as-env" }}
+{{- end }}
+

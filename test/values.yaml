@@ -10,6 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+containerPort: 8080
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -80,3 +82,36 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+testConnection: 
+  enabled: true
+
+secret:
+  asFile:
+    enabled: true
+    mountPath: "/data/config"
+    data: 
+      secret.txt: SECRET_FILE_AS_BASE64
+  asEnv:
+    enabled: true
+    data:
+      SECRET_NAME: SECRET_NAME_AS_BASE64
+
+configMap:
+  asFile:
+    enabled: false
+    mountPath: "/data/config"
+    data: 
+      nginx.conf: |
+        server {
+            location / {
+                root /data/www;
+            }
+            location /images/ {
+                root /data;
+            }
+        }
+  asEnv:
+    enabled: true
+    data: 
+      SERVICE_NAME: nginx

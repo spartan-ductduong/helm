@@ -10,6 +10,7 @@ RELEASE_VERSION="$($SEMTAG final -s $ACTION -o)"
 echo "Next release version: $RELEASE_VERSION"
 
 sed -i "/^version:/c version: $RELEASE_VERSION" charts/chargefuze/Chart.yaml
+sed -i "/^appVersion:/c appVersion: $RELEASE_VERSION" charts/chargefuze/Chart.yaml
 
 mkdir -p ./hosting
 

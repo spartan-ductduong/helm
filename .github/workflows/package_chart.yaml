@@ -30,4 +30,4 @@ jobs:
           
       - name: Bump Chart Version
         run: |
-          ./tool/ci.sh
+          ./tools/ci.sh

@@ -9,7 +9,7 @@ if [ ! -f /hosting/index.yml ]; then
 fi
 
 # Make sure that yq is installed
-if ! [ -x "$(command -v yq)" ]; then
+if ! [ "$(command -v yq)" ]; then
   apt install yq -y
   apt install yj -y
 fi

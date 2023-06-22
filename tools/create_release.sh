@@ -9,11 +9,11 @@ RELEASE_VERSION="$($SEMTAG final -s $ACTION -o)"
 
 echo "Next release version: $RELEASE_VERSION"
 
-sed -i "/^version:/c version: $RELEASE_VERSION" chargefuze/Chart.yaml
+sed -i "/^version:/c version: $RELEASE_VERSION" charts/chargefuze/Chart.yaml
 
 mkdir -p ./hosting
 
-helm package chargefuze -d ./hosting
+helm package charts/chargefuze -d ./hosting
 helm repo index hosting --merge ./hosting/index.yaml
 
 git add ./hosting

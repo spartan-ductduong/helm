@@ -383,7 +383,7 @@ function get_next_version {
     ;;
   esac
 
-  eval "$__result=v${__exploded[0]}.${__exploded[1]}.${__exploded[2]}"
+  eval "$__result=${__exploded[0]}.${__exploded[1]}.${__exploded[2]}"
 }
 
 function bump_version {
@@ -401,7 +401,7 @@ function bump_version {
     explode_identifier ${__explodedlast[3]} __idlast
 
     # We get the last, given the desired id based on the scope
-    __candidatefromlast="v${__explodedlast[0]}.${__explodedlast[1]}.${__explodedlast[2]}"
+    __candidatefromlast="${__explodedlast[0]}.${__explodedlast[1]}.${__explodedlast[2]}"
     if [[ -n "$identifier" ]]; then
       local __nextid="$identifier.1"
       if [ "$identifier" == "${__idlast[0]}" ]; then

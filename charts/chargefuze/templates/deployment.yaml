@@ -41,7 +41,7 @@ spec:
           livenessProbe: {{- toYaml .Values.livenessProbe | nindent 12 }}
           {{- end }}
           {{- if .Values.startupProbe }}
-          livenessProbe: {{- toYaml .Values.startupProbe | nindent 12 }}
+          startupProbe: {{- toYaml .Values.startupProbe | nindent 12 }}
           {{- end }}
           {{- if .Values.readinessProbe }}
           readinessProbe: {{- toYaml .Values.readinessProbe | nindent 12 }}

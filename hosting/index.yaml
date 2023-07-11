@@ -2,8 +2,18 @@ apiVersion: v1
 entries:
   chargefuze:
   - apiVersion: v2
+    appVersion: 0.2.1
+    created: "2023-07-11T02:11:35.140729884Z"
+    description: A Helm chart for Kubernetes
+    digest: b64963cc600009ab1a9f67f1ac533fe0f94224a0ee4f2d2525312f6d1ce9a040
+    name: chargefuze
+    type: application
+    urls:
+    - chargefuze-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     appVersion: 0.1.0
-    created: "2023-07-11T09:11:00.890291381+07:00"
+    created: "2023-07-11T02:11:35.140165585Z"
     description: A Helm chart for Kubernetes
     digest: 5fec1ee4b73e94b3acf7fbfc27c5ef8071b47136ea44495f8bfb5abff445fabb
     name: chargefuze
@@ -11,4 +21,4 @@ entries:
     urls:
     - chargefuze-0.1.0.tgz
     version: 0.1.0
-generated: "2023-07-11T09:11:00.889809327+07:00"
+generated: "2023-07-11T02:11:35.139418785Z"

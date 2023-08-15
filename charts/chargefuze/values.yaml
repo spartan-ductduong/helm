@@ -140,3 +140,12 @@ configMap:
     enabled: false
     data: {}
     # SERVICE_NAME: nginx
+
+workers:
+  - name: worker-1
+    enabled: false
+    command: "echo worker-1"
+    replicaCount: 1
+    terminationGracePeriodSeconds: 180
+    resources: {}
+

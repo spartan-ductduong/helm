@@ -1,0 +1,104 @@
+{{- if .Values.postInstalls.enabled }}
+{{- if .Values.postInstalls.commands }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "chargefuze.fullname" . }}-post-installs
+  labels:
+    {{- include "chargefuze.labels" . | nindent 4 }}
+    tier: "hook"
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "-5"
+    {{- if .Values.postInstalls.hookSucceeded }}
+    "helm.sh/hook-delete-policy": hook-succeeded
+    {{- end}}
+spec:
+  template:
+    metadata:
+      {{- if .Values.postInstalls.podAnnotations }}
+      {{- with .Values.postInstalls.podAnnotations }}
+      annotations:
+          {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- else }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+      labels:
+          {{- include "chargefuze.selectorLabels" . | nindent 8 }}
+    spec:
+        {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+      serviceAccountName: {{ include "chargefuze.serviceAccountName" . }}
+      securityContext:
+          {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+              {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.postInstalls.customImage.enabled }}
+          image: {{ .Values.postInstalls.customImage.image }}
+          {{- else }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - |
+            {{- range .Values.postInstalls.commands }}
+              {{ . }}
+            {{- end }}
+          resources:
+              {{- toYaml .Values.postInstalls.resources | nindent 12 }}
+          envFrom:
+              {{- if .Values.secret.asEnv.enabled }}
+            - secretRef:
+                name: {{ include "chargefuze.secretAsEnv" . }}
+              {{- end }}
+              {{- if .Values.configMap.asEnv.enabled }}
+            - configMapRef:
+                name: {{ include "chargefuze.configMapAsEnv" . }}
+              {{- end }}
+          volumeMounts:
+            {{- if .Values.secret.asFile.enabled }}
+            - name: {{ include "chargefuze.secretAsFile" . }}
+              readOnly: true
+              mountPath: {{ .Values.secret.asFile.mountPath | quote }}
+            {{- end }}
+            {{- if .Values.configMap.asFile.enabled }}
+            - name: {{ include "chargefuze.configMapAsFile" . }}
+              readOnly: true
+              mountPath: {{ .Values.configMap.asFile.mountPath | quote }}
+            {{- end }}
+        {{- with .Values.nodeSelector }}
+      nodeSelector:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.affinity }}
+      affinity:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.tolerations }}
+      tolerations:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+      volumes:
+        {{- if .Values.secret.asFile.enabled }}
+        - name: {{ include "chargefuze.secretAsFile" . }}
+          secret:
+            secretName: {{ include "chargefuze.secretAsFile" . }}
+        {{- end }}
+        {{- if .Values.configMap.asFile.enabled }}
+        - name: {{ include "chargefuze.configMapAsFile" . }}
+          secret:
+            secretName: {{ include "chargefuze.configMapAsFile" . }}
+        {{- end }}
+{{- end }}
+{{- end }}

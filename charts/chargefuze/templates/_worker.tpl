@@ -13,9 +13,16 @@ spec:
       {{- include "chargefuze.selectorLabels" $ | nindent 6 }}
   template:
     metadata:
+      {{- if .worker.podAnnotations }}
+      {{- with .worker.podAnnotations }}
+      annotations:
+          {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- else }}
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- end }}
       labels:
         {{- include "chargefuze.selectorLabels" $ | nindent 8 }}

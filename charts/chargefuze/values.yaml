@@ -148,4 +148,15 @@ workers:
     replicaCount: 1
     terminationGracePeriodSeconds: 180
     resources: {}
+    podAnnotations: {}
 
+postInstalls:
+  enabled: false
+  hookSucceeded: true
+  commands: {}
+  #  - ls -la
+  resources: {}
+  customImage:
+    enabled: false
+    image: busybox
+  podAnnotations: {}

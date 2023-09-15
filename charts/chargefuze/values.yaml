@@ -141,22 +141,27 @@ configMap:
     data: {}
     # SERVICE_NAME: nginx
 
-workers:
-  - name: worker-1
-    enabled: false
-    command: "echo worker-1"
-    replicaCount: 1
-    terminationGracePeriodSeconds: 180
-    resources: {}
-    podAnnotations: {}
+workers: {}
+#  - name: worker-1
+#    enabled: false
+#    command: "echo worker-1"
+#    replicaCount: 1
+#    terminationGracePeriodSeconds: 180
+#    resources: {}
+#    podAnnotations: {}
 
-postInstalls:
-  enabled: false
-  hookSucceeded: true
-  commands: {}
-  #  - ls -la
-  resources: {}
-  customImage:
-    enabled: false
-    image: busybox
-  podAnnotations: {}
+hooks: {}
+#  - name: "ls"
+#    enabled: false
+#    hookTypes: "post-install,post-upgrade"
+#    hookWeight: 0
+#    hookSucceeded: true
+#    commands:
+#      - ls -la
+#    resources: {}
+#    customImage:
+#      enabled: false
+#      image: busybox
+#    podAnnotations: {}
+#    restartPolicy: Never
+#    backoffLimit: 0

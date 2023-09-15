@@ -1,5 +1,5 @@
 {{- range .Values.workers }}
-  {{ if .enabled}}
+  {{ if .enabled }}
   {{- include "chargefuze.worker" (dict "worker" . "Values" $.Values "Chart" $.Chart "Release" $.Release) }}
   {{- end }}
 {{- end }}

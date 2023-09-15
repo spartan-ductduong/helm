@@ -1,23 +1,23 @@
-{{- if .Values.postInstalls.enabled }}
-{{- if .Values.postInstalls.commands }}
+{{ define "chargefuze.hook" }}
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "chargefuze.fullname" . }}-post-installs
+  name: {{ include "chargefuze.fullname" $ }}-hook-{{ .hook.name}}
   labels:
     {{- include "chargefuze.labels" . | nindent 4 }}
     tier: "hook"
   annotations:
-    "helm.sh/hook": post-install,post-upgrade
-    "helm.sh/hook-weight": "-5"
-    {{- if .Values.postInstalls.hookSucceeded }}
+    "helm.sh/hook": {{ .hook.hookTypes | default "post-install" }}
+    "helm.sh/hook-weight": "{{ .hook.hookWeight | default "0" }}"
+    {{- if .hook.hookSucceeded }}
     "helm.sh/hook-delete-policy": hook-succeeded
     {{- end}}
 spec:
+  backoffLimit: {{ .hook.backoffLimit | default 0 }}
   template:
     metadata:
-      {{- if .Values.postInstalls.podAnnotations }}
-      {{- with .Values.postInstalls.podAnnotations }}
+      {{- if .hook.podAnnotations }}
+      {{- with .hook.podAnnotations }}
       annotations:
           {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -37,13 +37,13 @@ spec:
       serviceAccountName: {{ include "chargefuze.serviceAccountName" . }}
       securityContext:
           {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      restartPolicy: OnFailure
+      restartPolicy: {{ .hook.restartPolicy }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
               {{- toYaml .Values.securityContext | nindent 12 }}
-          {{- if .Values.postInstalls.customImage.enabled }}
-          image: {{ .Values.postInstalls.customImage.image }}
+          {{- if .hook.customImage.enabled }}
+          image: {{ .hook.customImage.image }}
           {{- else }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
           {{- end }}
@@ -52,11 +52,11 @@ spec:
             - /bin/sh
             - -c
             - |
-            {{- range .Values.postInstalls.commands }}
+            {{- range .hook.commands }}
               {{ . }}
             {{- end }}
           resources:
-              {{- toYaml .Values.postInstalls.resources | nindent 12 }}
+              {{- toYaml .hook.resources | nindent 12 }}
           envFrom:
               {{- if .Values.secret.asEnv.enabled }}
             - secretRef:
@@ -100,5 +100,4 @@ spec:
           secret:
             secretName: {{ include "chargefuze.configMapAsFile" . }}
         {{- end }}
-{{- end }}
 {{- end }}

@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "chargefuze.fullname" $ }}-{{ .worker.name}}
+  name: {{ include "chargefuze.fullname" $ }}-worker-{{ .worker.name}}
   labels:
     {{- include "chargefuze.labels" $ | nindent 4 }}
     tier: "worker"

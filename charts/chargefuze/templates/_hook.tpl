@@ -37,7 +37,7 @@ spec:
       serviceAccountName: {{ include "chargefuze.serviceAccountName" . }}
       securityContext:
           {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      restartPolicy: {{ .hook.restartPolicy }}
+      restartPolicy: {{ .hook.restartPolicy | default "OnFailure" }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

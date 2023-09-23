@@ -7,9 +7,8 @@ metadata:
     {{- include "chargefuze.labels" . | nindent 4 }}
     tier: "hook"
   annotations:
-    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook": "post-install,pre-upgrade"
     "helm.sh/hook-weight": "{{ .hook.hookWeight | default "0" }}"
-    "helm.sh/hook-delete-policy": hook-succeeded
     "helm.sh/resource-policy": keep
 spec:
   backoffLimit: {{ .hook.backoffLimit | default 0 }}

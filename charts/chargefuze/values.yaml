@@ -155,7 +155,6 @@ hooks: {}
 #    enabled: false
 #    hookTypes: "post-install,post-upgrade"
 #    hookWeight: 0
-#    hookSucceeded: true
 #    commands:
 #      - ls -la
 #    resources: {}

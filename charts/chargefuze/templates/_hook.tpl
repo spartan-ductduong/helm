@@ -7,11 +7,10 @@ metadata:
     {{- include "chargefuze.labels" . | nindent 4 }}
     tier: "hook"
   annotations:
-    "helm.sh/hook": {{ .hook.hookTypes | default "post-install" }}
+    "helm.sh/hook": "pre-install,pre-upgrade"
     "helm.sh/hook-weight": "{{ .hook.hookWeight | default "0" }}"
-    {{- if .hook.hookSucceeded }}
     "helm.sh/hook-delete-policy": hook-succeeded
-    {{- end}}
+    "helm.sh/resource-policy": keep
 spec:
   backoffLimit: {{ .hook.backoffLimit | default 0 }}
   template:
@@ -37,7 +36,7 @@ spec:
       serviceAccountName: {{ include "chargefuze.serviceAccountName" . }}
       securityContext:
           {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      restartPolicy: {{ .hook.restartPolicy | default "OnFailure" }}
+      restartPolicy: {{ .hook.restartPolicy | default "Never" }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

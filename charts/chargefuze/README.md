@@ -135,6 +135,8 @@ The following table lists the configurable parameters of the chargefuze chart an
 | secret.asEnv.data                             | Specifies the data for the Secret created from environment variables                         | {}           |
 | hooks                                         | Allows customization of various aspects of the Job                                           | {}           |
 | workers                                       | Enables users to deploy scalable and customizable worker components                          | {}           |
-
+| [backendConfig](https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-configuration#configuring_ingress_features_through_frontendconfig_parameters) | Specifies the configuration for backend configuration of ALB of GKE ingress                  | {}           |
+| [frontendConfig](https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-configuration#configuring_ingress_features_through_backendconfig_parameters) | Specifies the configuration for frontend configuration of ALB of GKE ingress                 | {}           |
+| [managedCertificate](https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs)                                                                   | Enable the managed certificate for TLS/SSL for GKE ingress ALB                               | {}           |
 The above parameters map to the env variables defined in [chargefuze](https://github.com/charge-fuze/infra-helm).
 

@@ -18,9 +18,15 @@ metadata:
   name: {{ $fullName }}
   labels:
     {{- include "chargefuze.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
+  {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- if .Values.frontendConfig }}
+    networking.gke.io/v1beta1.FrontendConfig: {{ include "chargefuze.fullname" $ }}-frontend-config
+  {{- end }}
+  {{- if .Values.managedCertificate }}
+    networking.gke.io/managed-certificates: {{ include "chargefuze.fullname" $ }}-managed-certificate
   {{- end }}
 spec:
   {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}

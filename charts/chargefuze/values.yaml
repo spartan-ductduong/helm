@@ -16,7 +16,6 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: false
@@ -45,12 +44,23 @@ service:
   protocol: TCP
   name: http
 
+frontendConfig: {}
+  # redirectToHttps:
+  #   responseCodeName: MOVED_PERMANENTLY_DEFAULT
+
+backendConfig: {}
+  # sessionAffinity:
+  #   affinityType: GENERATED_COOKIE
+  #   affinityCookieTtlSec: 60
+  # securityPolicyName: example-policy
+
 ingress:
   enabled: false
   className: ""
   annotations: {}
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
+  # kubernetes.io/ingress.class: gce
+  # kubernetes.io/ingress.global-static-ip-name: example-gcp-ip-address
+  #
   hosts: {}
   # - host: chart-example.local
   #   paths:
@@ -60,6 +70,10 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+managedCertificate: {}
+  # domains: []
+  # - chart-example.local
 
 livenessProbe: {}
 # httpGet:

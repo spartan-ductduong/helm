@@ -1,0 +1,9 @@
+{{- if .Values.managedCertificate }}
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: {{ include "chargefuze.fullname" $ }}-managed-certificate
+spec:
+  domains:
+    {{- toYaml .Values.managedCertificate.domains | nindent 4 }}
+{{- end }}

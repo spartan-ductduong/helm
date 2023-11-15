@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: {{ include "chargefuze.fullname" . }}
   annotations:
+  {{- if .Values.service.annotations }}
+  {{- toYaml .Values.service.annotations | nindent 4 }}
+  {{- end }}
   {{- if .Values.backendConfig }}
     cloud.google.com/backend-config: '{"default": "{{ include "chargefuze.fullname" $ }}-backend-config"}'
   {{- end }}

@@ -39,6 +39,7 @@ securityContext: {}
 # runAsUser: 1000
 
 service:
+  annotations: {}
   type: ClusterIP
   port: 80
   protocol: TCP
@@ -66,10 +67,6 @@ ingress:
   #   paths:
   #   - path: /
   #     pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 managedCertificate: {}
   # domains: []

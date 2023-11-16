@@ -60,9 +60,17 @@ spec:
             - secretRef:
                 name: {{ include "chargefuze.secretAsEnv" . }}
               {{- end }}
+              {{- if .Values.secret.externalSecretEnv.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.externalSecretEnv.name }}
+              {{- end }}
               {{- if .Values.configMap.asEnv.enabled }}
             - configMapRef:
                 name: {{ include "chargefuze.configMapAsEnv" . }}
+              {{- end }}
+              {{- if .Values.configMap.externalConfigMapEnv.enabled }}
+            - configMapRef:
+                name: {{ .Values.configMap.externalConfigMapEnv.name }}
               {{- end }}
           volumeMounts:
             {{- if .Values.secret.asFile.enabled }}
@@ -70,10 +78,20 @@ spec:
               readOnly: true
               mountPath: {{ .Values.secret.asFile.mountPath | quote }}
             {{- end }}
+            {{- if .Values.secret.externalSecretFile.enabled }}
+            - name: {{ .Values.secret.externalSecretFile.name }}
+              readOnly: true
+              mountPath: {{ .Values.secret.externalSecretFile.mountPath | quote }}
+            {{- end }}
             {{- if .Values.configMap.asFile.enabled }}
             - name: {{ include "chargefuze.configMapAsFile" . }}
               readOnly: true
               mountPath: {{ .Values.configMap.asFile.mountPath | quote }}
+            {{- end }}
+            {{- if .Values.configMap.externalConfigMapFile.enabled }}
+            - name: {{ .Values.configMap.externalConfigMapFile.name }}
+              readOnly: true
+              mountPath: {{ .Values.configMap.externalConfigMapFile.mountPath | quote }}
             {{- end }}
         {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -93,9 +111,19 @@ spec:
           secret:
             secretName: {{ include "chargefuze.secretAsFile" . }}
         {{- end }}
+        {{- if .Values.secret.externalSecretFile.enabled }}
+        - name: {{ .Values.secret.externalSecretFile.name }}
+          secret:
+            secretName: {{ .Values.secret.externalSecretFile.name }}
+        {{- end }}
         {{- if .Values.configMap.asFile.enabled }}
         - name: {{ include "chargefuze.configMapAsFile" . }}
-          secret:
-            secretName: {{ include "chargefuze.configMapAsFile" . }}
+          configMap:
+            name: {{ include "chargefuze.configMapAsFile" . }}
+        {{- end }}
+        {{- if .Values.configMap.externalConfigMapFile.enabled }}
+        - name: {{ .Values.configMap.externalConfigMapFile.name }}
+          configMap:
+            name: {{ .Values.configMap.externalConfigMapFile.name }}
         {{- end }}
 {{- end }}

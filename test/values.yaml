@@ -132,6 +132,13 @@ secret:
     enabled: true
     data:
      SECRET_NAME: SECRET_NAME_AS_BASE64
+  externalSecretEnv:
+    enabled: true
+    name: external-secret-env
+  externalSecretFile:
+    enabled: true
+    name: external-secret-file
+    mountPath: "/data/config"
 
 configMap:
   asFile:
@@ -151,6 +158,13 @@ configMap:
     enabled: true
     data:
      SERVICE_NAME: nginx
+  externalConfigMapEnv:
+    enabled: true
+    name: external-config-map-env
+  externalConfigMapFile:
+    enabled: true
+    name: external-config-map-file
+    mountPath: "/data/config"
 
 workers:
   - name: worker-1

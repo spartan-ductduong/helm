@@ -2,9 +2,8 @@
 
 # Introduction
 
-Standard Infrastructure's project related charts will include two different chart types:
--   Public charts: Using community Public Helm charts in [stable](https://github.com/Helm/charts/tree/master/stable)/[incubator](https://github.com/Helm/charts/tree/master/incubator) channel or any other Helm public repositories
--   Private charts: DevOps customized Charts for specific component(s) that NOT have in Public community
+The Helm Chart provides a comprehensive solution for deploying and managing [Your Application] on Kubernetes clusters. 
+This Helm chart simplifies the deployment process by encapsulating all the necessary Kubernetes manifests and configuration into a single package.
 
 ## Helm Chart File Structure
 

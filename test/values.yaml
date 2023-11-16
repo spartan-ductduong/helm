@@ -47,15 +47,19 @@ service:
   protocol: TCP
   name: http
 
-frontendConfig:
-  redirectToHttps:
-    responseCodeName: MOVED_PERMANENTLY_DEFAULT
-
-backendConfig:
-  sessionAffinity:
-    affinityType: GENERATED_COOKIE
-    affinityCookieTtlSec: 60
-  securityPolicyName: example-policy
+gcp:
+  enabled: true
+  frontendConfig:
+    redirectToHttps:
+      responseCodeName: MOVED_PERMANENTLY_DEFAULT
+  backendConfig:
+    sessionAffinity:
+      affinityType: GENERATED_COOKIE
+      affinityCookieTtlSec: 60
+    securityPolicyName: example-policy
+  managedCertificate:
+    domains:
+      - chart-example.local
 
 ingress:
   enabled: true
@@ -67,10 +71,6 @@ ingress:
     paths:
     - path: /
       pathType: ImplementationSpecific
-
-managedCertificate:
-  domains:
-  - chart-example.local
 
 livenessProbe:
  httpGet:

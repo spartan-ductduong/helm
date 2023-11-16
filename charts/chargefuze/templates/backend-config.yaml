@@ -1,10 +1,12 @@
-{{- if .Values.backendConfig }}
+{{- if .Values.gcp.enabled }}
+{{- if .Values.gcp.backendConfig }}
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
   name:  {{ include "chargefuze.fullname" $ }}-backend-config
 spec:
-  {{- with .Values.backendConfig}}
+  {{- with .Values.gcp.backendConfig}}
     {{- toYaml . | nindent 2 }}
   {{- end }}
+{{- end }}
 {{- end }}

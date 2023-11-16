@@ -22,11 +22,13 @@ metadata:
   {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- if .Values.frontendConfig }}
+  {{- if .Values.gcp.enabled }}
+  {{- if .Values.gcp.frontendConfig }}
     networking.gke.io/v1beta1.FrontendConfig: {{ include "chargefuze.fullname" $ }}-frontend-config
   {{- end }}
-  {{- if .Values.managedCertificate }}
+  {{- if .Values.gcp.managedCertificate }}
     networking.gke.io/managed-certificates: {{ include "chargefuze.fullname" $ }}-managed-certificate
+  {{- end }}
   {{- end }}
 spec:
   {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}

@@ -1,6 +1,67 @@
 apiVersion: v1
 entries:
+  chargefuze:
+  - apiVersion: v2
+    appVersion: 0.1.4
+    created: "2023-11-17T06:48:53.151674548Z"
+    description: A Helm chart for Kubernetes
+    digest: 7b42481d26f6890364113836b31b791c160effbf5424620afb9cb18b1c6b111b
+    name: chargefuze
+    type: application
+    urls:
+    - chargefuze-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 0.1.3
+    created: "2023-11-17T06:48:53.150919549Z"
+    description: A Helm chart for Kubernetes
+    digest: 6039588c36dc2fe90649dc57cfa7ebf0db1c22acc2c4c135a5908a6fd7097aad
+    name: chargefuze
+    type: application
+    urls:
+    - chargefuze-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 0.1.2
+    created: "2023-11-17T06:48:53.15036515Z"
+    description: A Helm chart for Kubernetes
+    digest: d49231bf5a488a8fc8823d21b592a8e9c698cf685ad9bbf61a43e4a2b2c05ffa
+    name: chargefuze
+    type: application
+    urls:
+    - chargefuze-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2023-11-17T06:48:53.149783852Z"
+    description: A Helm chart for Kubernetes
+    digest: 030f7403faa94b518a35f2c406103b15ae5a4bb22757713bd14916adc3c44885
+    name: chargefuze
+    type: application
+    urls:
+    - chargefuze-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-11-17T06:48:53.149267853Z"
+    description: A Helm chart for Kubernetes
+    digest: 5fec1ee4b73e94b3acf7fbfc27c5ef8071b47136ea44495f8bfb5abff445fabb
+    name: chargefuze
+    type: application
+    urls:
+    - chargefuze-0.1.0.tgz
+    version: 0.1.0
   spartan:
+  - apiVersion: v2
+    appVersion: 0.2.0
+    created: "2023-11-17T06:48:53.152614746Z"
+    description: A Helm chart for Kubernetes
+    digest: e17ca51003bad1dee91333951544b69f5ed06c2adaca6d17462899f5fa3f0f73
+    name: spartan
+    type: application
+    urls:
+    - spartan-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     appVersion: 0.1.4
     created: "2023-11-16T13:49:55.1160813Z"
@@ -51,4 +112,4 @@ entries:
     urls:
     - spartan-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-16T13:49:55.072070297Z"
+generated: "2023-11-17T06:48:53.148533854Z"

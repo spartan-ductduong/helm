@@ -3,7 +3,7 @@ entries:
   chargefuze:
   - apiVersion: v2
     appVersion: 0.1.4
-    created: "2023-11-17T08:42:40.609470796Z"
+    created: "2023-11-17T08:44:42.476172702Z"
     description: A Helm chart for Kubernetes
     digest: 7b42481d26f6890364113836b31b791c160effbf5424620afb9cb18b1c6b111b
     name: chargefuze
@@ -13,7 +13,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2023-11-17T08:42:40.600881772Z"
+    created: "2023-11-17T08:44:42.475207391Z"
     description: A Helm chart for Kubernetes
     digest: 6039588c36dc2fe90649dc57cfa7ebf0db1c22acc2c4c135a5908a6fd7097aad
     name: chargefuze
@@ -23,7 +23,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 0.1.2
-    created: "2023-11-17T08:42:40.600324564Z"
+    created: "2023-11-17T08:44:42.474487882Z"
     description: A Helm chart for Kubernetes
     digest: d49231bf5a488a8fc8823d21b592a8e9c698cf685ad9bbf61a43e4a2b2c05ffa
     name: chargefuze
@@ -33,7 +33,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 0.1.1
-    created: "2023-11-17T08:42:40.599753855Z"
+    created: "2023-11-17T08:44:42.468900716Z"
     description: A Helm chart for Kubernetes
     digest: 030f7403faa94b518a35f2c406103b15ae5a4bb22757713bd14916adc3c44885
     name: chargefuze
@@ -43,7 +43,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2023-11-17T08:42:40.598758941Z"
+    created: "2023-11-17T08:44:42.468281408Z"
     description: A Helm chart for Kubernetes
     digest: 5fec1ee4b73e94b3acf7fbfc27c5ef8071b47136ea44495f8bfb5abff445fabb
     name: chargefuze
@@ -54,12 +54,12 @@ entries:
   spartan:
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2023-11-17T08:42:40.610655913Z"
+    created: "2023-11-17T08:44:42.477099513Z"
     description: A Helm chart for Kubernetes
-    digest: 92ddef586bc54ffd13cb6b565db62b67c4d20e8a79664e1419390fcbbacf9d22
+    digest: becba2653265c3829f076eff3f9e376e2d339911699b4bd992d5d612abe22d62
     name: spartan
     type: application
     urls:
     - spartan-0.2.0.tgz
     version: 0.2.0
-generated: "2023-11-17T08:42:40.598067231Z"
+generated: "2023-11-17T08:44:42.467432698Z"

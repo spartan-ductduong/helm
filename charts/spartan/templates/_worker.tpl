@@ -1,58 +1,56 @@
+{{ define "spartan.worker" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "chargefuze.fullname" . }}
+  name: {{ include "spartan.fullname" $ }}-worker-{{ .worker.name}}
   labels:
-    {{- include "chargefuze.labels" . | nindent 4 }}
-    tier: "application"
+    {{- include "spartan.labels" $ | nindent 4 }}
+    tier: "worker"
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: {{ .worker.replicaCount | default 1 }}
   selector:
     matchLabels:
-      {{- include "chargefuze.selectorLabels" . | nindent 6 }}
+      {{- include "spartan.selectorLabels" $ | nindent 6 }}
   template:
     metadata:
+      {{- if .worker.podAnnotations }}
+      {{- with .worker.podAnnotations }}
+      annotations:
+          {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- else }}
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- end }}
       labels:
-        {{- include "chargefuze.selectorLabels" . | nindent 8 }}
+        {{- include "spartan.selectorLabels" $ | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "chargefuze.serviceAccountName" . }}
+      serviceAccountName: {{ include "spartan.serviceAccountName" $ }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      terminationGracePeriodSeconds: {{ .worker.terminationGracePeriodSeconds | default 180 }}
       containers:
         - name: {{ .Chart.Name }}
+          command:
+            - /bin/sh
+            - -c
+            - {{ .worker.command }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.containerPort | default 80 }}
-              protocol: TCP
-          {{- if .Values.livenessProbe }}
-          livenessProbe: {{- toYaml .Values.livenessProbe | nindent 12 }}
-          {{- end }}
-          {{- if .Values.startupProbe }}
-          startupProbe: {{- toYaml .Values.startupProbe | nindent 12 }}
-          {{- end }}
-          {{- if .Values.readinessProbe }}
-          readinessProbe: {{- toYaml .Values.readinessProbe | nindent 12 }}
-          {{- end }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .worker.resources | nindent 12 }}
           envFrom:
             {{- if .Values.secret.asEnv.enabled }}
             - secretRef:
-                name: {{ include "chargefuze.secretAsEnv" . }}
+                name: {{ include "spartan.secretAsEnv" $ }}
             {{- end }}
             {{- if .Values.secret.externalSecretEnv.enabled }}
             - secretRef:
@@ -60,7 +58,7 @@ spec:
             {{- end }}
             {{- if .Values.configMap.asEnv.enabled }}
             - configMapRef:
-                name: {{ include "chargefuze.configMapAsEnv" . }}
+                name: {{ include "spartan.configMapAsEnv" $ }}
             {{- end }}
             {{- if .Values.configMap.externalConfigMapEnv.enabled }}
             - configMapRef:
@@ -68,7 +66,7 @@ spec:
             {{- end }}
           volumeMounts:
           {{- if .Values.secret.asFile.enabled }}
-            - name: {{ include "chargefuze.secretAsFile" . }}
+            - name: {{ include "spartan.secretAsFile" $ }}
               readOnly: true
               mountPath: {{ .Values.secret.asFile.mountPath | quote }}
           {{- end }}
@@ -78,7 +76,7 @@ spec:
               mountPath: {{ .Values.secret.externalSecretFile.mountPath | quote }}
           {{- end }}
           {{- if .Values.configMap.asFile.enabled }}
-            - name: {{ include "chargefuze.configMapAsFile" . }}
+            - name: {{ include "spartan.configMapAsFile" $ }}
               readOnly: true
               mountPath: {{ .Values.configMap.asFile.mountPath | quote }}
           {{- end }}
@@ -101,9 +99,9 @@ spec:
       {{- end }}
       volumes:
       {{- if .Values.secret.asFile.enabled }}
-        - name: {{ include "chargefuze.secretAsFile" . }}
+        - name: {{ include "spartan.secretAsFile" $ }}
           secret:
-            secretName: {{ include "chargefuze.secretAsFile" . }}
+            secretName: {{ include "spartan.secretAsFile" $ }}
       {{- end }}
       {{- if .Values.secret.externalSecretFile.enabled }}
         - name: {{ .Values.secret.externalSecretFile.name }}
@@ -111,12 +109,13 @@ spec:
             secretName: {{ .Values.secret.externalSecretFile.name }}
       {{- end }}
       {{- if .Values.configMap.asFile.enabled }}
-        - name: {{ include "chargefuze.configMapAsFile" . }}
+        - name: {{ include "spartan.configMapAsFile" $ }}
           configMap:
-            name: {{ include "chargefuze.configMapAsFile" . }}
+            name: {{ include "spartan.configMapAsFile" $ }}
       {{- end }}
       {{- if .Values.configMap.externalConfigMapFile.enabled }}
         - name: {{ .Values.configMap.externalConfigMapFile.name }}
           configMap:
             name: {{ .Values.configMap.externalConfigMapFile.name }}
       {{- end }}
+{{ end }}

@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "chargefuze.fullname" . -}}
+{{- $fullName := include "spartan.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
@@ -17,17 +17,17 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "chargefuze.labels" . | nindent 4 }}
+    {{- include "spartan.labels" . | nindent 4 }}
   annotations:
   {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- if .Values.gcp.enabled }}
   {{- if .Values.gcp.frontendConfig }}
-    networking.gke.io/v1beta1.FrontendConfig: {{ include "chargefuze.fullname" $ }}-frontend-config
+    networking.gke.io/v1beta1.FrontendConfig: {{ include "spartan.fullname" $ }}-frontend-config
   {{- end }}
   {{- if .Values.gcp.managedCertificate }}
-    networking.gke.io/managed-certificates: {{ include "chargefuze.fullname" $ }}-managed-certificate
+    networking.gke.io/managed-certificates: {{ include "spartan.fullname" $ }}-managed-certificate
   {{- end }}
   {{- end }}
 spec:

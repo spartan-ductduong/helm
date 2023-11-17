@@ -1,10 +1,10 @@
-# Chargefuze chart
+# spartan chart
 
 Provide a simple way to deploy applications base on our demand
 
 ## Introduction
 
-This chart bootstraps a [charge-fuze](https://github.com/charge-fuze/infra-helm) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [<github-org>](https://github.com/c0x12c/infra-helm) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ This chart bootstraps a [charge-fuze](https://github.com/charge-fuze/infra-helm)
 
 ```bash
 # Add the Elastic Helm Repository
-helm repo add chargefuze https://<your-token>@raw.githubusercontent.com/charge-fuze/infra-helm/master/hosting
+helm repo add spartan https://<your-token>@raw.githubusercontent.com/<github-org>/infra-helm/master/hosting
 helm repo update
 ```
 
@@ -23,20 +23,20 @@ See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation.
 
 ## Installing the Chart
 
-To install the chargefuze chart using Helm.
+To install the spartan chart using Helm.
 
 ```sh
-helm install <release_name> chargefuze/<chart_name> -n <namespace> --create-namespace
+helm install <release_name> spartan/<chart_name> -n <namespace> --create-namespace
 ```
 
 `<release_name>`: The name assigned to a release when install a Helm chart.
 
 ## Upgrading the Chart
 
-To upgrade the chargefuze chart using Helm.
+To upgrade the spartan chart using Helm.
 
 ```sh
-helm upgrade <release_name> [--install] chargefuze/<chart_name> -n <namespace> -f /values.yaml
+helm upgrade <release_name> [--install] spartan/<chart_name> -n <namespace> -f /values.yaml
 ```
 
 `/values.yaml`: Points to a specific values file (values.yaml) that contains configuration settings for the Helm chart.
@@ -48,7 +48,7 @@ helm upgrade <release_name> [--install] chargefuze/<chart_name> -n <namespace> -
 To uninstall/delete the `<release_name>` deployment from the `<namespace>`:
 
 ```console
-# Uninstalling the chargefuze chart
+# Uninstalling the spartan chart
 helm delete <release_name> -n <namespace>
 ```
 The command removes all the resources associated with the chart and deletes the release.
@@ -58,7 +58,7 @@ The command removes all the resources associated with the chart and deletes the 
 To render templates with provided values:
 
 ```console
-helm template --values ./test/values.yaml ./charts/chargefuze
+helm template --values ./test/values.yaml ./charts/spartan
 ```
 The command allows to prevalidate helm chart template before its deployment and executes helm lint and helm template commands
 
@@ -66,7 +66,7 @@ The command allows to prevalidate helm chart template before its deployment and 
 
 To test rendering chart templates locally.
 ```
-helm template --dry-run --debug ./charts/chargefuze --generate-name
+helm template --dry-run --debug ./charts/spartan --generate-name
 
 ```
 
@@ -77,16 +77,16 @@ helm template <version>.tgz --namespace <namespace> -f "values.yaml" > template-
 - Example:
 
 ```
-cd /charts/chargefuze/
+cd /charts/spartan/
 helm package .
-helm template chargefuze-0.1.0.tgz --namespace dev -f "values.yaml" > template-file.yaml
+helm template spartan-0.1.0.tgz --namespace dev -f "values.yaml" > template-file.yaml
 
-This command will gen template-file.yaml file at /charts/chargefuze/
+This command will gen template-file.yaml file at /charts/spartan/
 ```
 
 ## Configuration
 
-The following table lists the configurable parameters of the chargefuze chart and their default values.
+The following table lists the configurable parameters of the spartan chart and their default values.
 
 | Parameter                                                                                                                                                        | Description                                                                                  | Default      |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|--------------|
@@ -95,7 +95,7 @@ The following table lists the configurable parameters of the chargefuze chart an
 | image.tag                                                                                                                                                        | Container image tag                                                                          | null         |
 | image.pullPolicy                                                                                                                                                 | Container image pull policy                                                                  | IfNotPresent |
 | imagePullSecrets                                                                                                                                                 | Global Docker registry secret names as an array                                              | []           |
-| fullnameOverride                                                                                                                                                 | String to fully override chargefuze.fullname template                                        | null         |
+| fullnameOverride                                                                                                                                                 | String to fully override spartan.fullname template                                           | null         |
 | nameOverride                                                                                                                                                     | String to partially override common.names.fullname template (will maintain the release name) | null         |
 | ingress.enabled                                                                                                                                                  | Enable ingress controller resource                                                           | false        |
 | ingress.className                                                                                                                                                | Ingress class name (Kubernetes 1.18+)                                                        | null         |
@@ -116,8 +116,8 @@ The following table lists the configurable parameters of the chargefuze chart an
 | replicaCount                                                                                                                                                     | Number of replicas                                                                           | 1            |
 | resources                                                                                                                                                        | Server resource requests and limits                                                          | {}           |
 | nodeSelector                                                                                                                                                     | Node labels for pod assignment                                                               | {}           |
-| securityContext                                                                                                                                                  | Custom security context for chargefuze container                                             | {}           |
-| podSecurityContext                                                                                                                                               | Custom pod security context for chargefuze pod                                               | {}           |
+| securityContext                                                                                                                                                  | Custom security context for spartan container                                                | {}           |
+| podSecurityContext                                                                                                                                               | Custom pod security context for spartan pod                                                  | {}           |
 | tolerations                                                                                                                                                      | Toleration labels for pod assignment                                                         | []           |
 | affinity                                                                                                                                                         | Affinity settings for pod assignment                                                         | {}           |
 | autoscaling.enabled                                                                                                                                              | Enables Autoscaling                                                                          | false        |
@@ -150,5 +150,5 @@ The following table lists the configurable parameters of the chargefuze chart an
 | [gcp.backendConfig](https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-configuration#configuring_ingress_features_through_frontendconfig_parameters) | Specifies the configuration for backend configuration of ALB of GKE ingress                  | {}           |
 | [gcp.frontendConfig](https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-configuration#configuring_ingress_features_through_backendconfig_parameters) | Specifies the configuration for frontend configuration of ALB of GKE ingress                 | {}           |
 | [gcp.managedCertificate](https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs)                                                                   | Enable the managed certificate for TLS/SSL for GKE ingress ALB                               | {}           |
-The above parameters map to the env variables defined in [chargefuze](https://github.com/charge-fuze/infra-helm).
+The above parameters map to the env variables defined in [spartan](https://github.com/<github-org>/infra-helm).
 

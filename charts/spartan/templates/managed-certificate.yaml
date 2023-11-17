@@ -3,7 +3,7 @@
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: {{ include "chargefuze.fullname" $ }}-managed-certificate
+  name: {{ include "spartan.fullname" $ }}-managed-certificate
 spec:
   domains:
     {{- toYaml .Values.gcp.managedCertificate.domains | nindent 4 }}

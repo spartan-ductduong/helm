@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "chargefuze.name" -}}
+{{- define "spartan.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "chargefuze.fullname" -}}
+{{- define "spartan.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "chargefuze.chart" -}}
+{{- define "spartan.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "chargefuze.labels" -}}
-helm.sh/chart: {{ include "chargefuze.chart" . }}
-{{ include "chargefuze.selectorLabels" . }}
+{{- define "spartan.labels" -}}
+helm.sh/chart: {{ include "spartan.chart" . }}
+{{ include "spartan.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "chargefuze.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "chargefuze.name" . }}
+{{- define "spartan.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "spartan.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "chargefuze.serviceAccountName" -}}
+{{- define "spartan.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "chargefuze.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "spartan.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -64,28 +64,28 @@ Create the name of the service account to use
 {{/*
 Secret as files
 */}}
-{{- define "chargefuze.secretAsFile" -}}
-{{- printf "%s-%s" (include "chargefuze.fullname" .) "secret-as-file" }}
+{{- define "spartan.secretAsFile" -}}
+{{- printf "%s-%s" (include "spartan.fullname" .) "secret-as-file" }}
 {{- end }}
 
 {{/*
 Secret as environment variables
 */}}
-{{- define "chargefuze.secretAsEnv" -}}
-{{- printf "%s-%s" (include "chargefuze.fullname" .) "secret-as-env" }}
+{{- define "spartan.secretAsEnv" -}}
+{{- printf "%s-%s" (include "spartan.fullname" .) "secret-as-env" }}
 {{- end }}
 
 {{/*
 ConfigMap as files
 */}}
-{{- define "chargefuze.configMapAsFile" -}}
-{{- printf "%s-%s" (include "chargefuze.fullname" .) "cm-as-file" }}
+{{- define "spartan.configMapAsFile" -}}
+{{- printf "%s-%s" (include "spartan.fullname" .) "cm-as-file" }}
 {{- end }}
 
 {{/*
 ConfigMap as files
 */}}
-{{- define "chargefuze.configMapAsEnv" -}}
-{{- printf "%s-%s" (include "chargefuze.fullname" .) "cm-as-env" }}
+{{- define "spartan.configMapAsEnv" -}}
+{{- printf "%s-%s" (include "spartan.fullname" .) "cm-as-env" }}
 {{- end }}
 

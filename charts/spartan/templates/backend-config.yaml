@@ -3,7 +3,7 @@
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name:  {{ include "chargefuze.fullname" $ }}-backend-config
+  name:  {{ include "spartan.fullname" $ }}-backend-config
 spec:
   {{- with .Values.gcp.backendConfig}}
     {{- toYaml . | nindent 2 }}

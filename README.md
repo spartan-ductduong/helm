@@ -21,7 +21,7 @@ Following is overall folder structure to describe how Helm charts will be locate
 ### Custom Chart
 Custom charts will follow the Helm official File Structure as below:
 
-    /chargefuze
+    /spartan
       README.md           # OPTIONAL: A human-readable README file
       Chart.yaml          # A YAML file containing information about the chart
       values.yaml         # The default configuration values for this chart

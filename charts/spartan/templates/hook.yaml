@@ -1,0 +1,5 @@
+{{- range .Values.hooks }}
+  {{ if and .enabled .commands }}
+  {{- include "spartan.hook" (dict "hook" . "Values" $.Values "Chart" $.Chart "Release" $.Release) }}
+  {{- end }}
+{{- end }}

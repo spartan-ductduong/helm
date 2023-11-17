@@ -17,6 +17,6 @@ jobs:
 
       - name: Bump version
         run: |
-          git config user.email github-actions@chargefuze.com
+          git config user.email github-actions@spartan.com
           git config user.name github-actions
           ./tools/create_release.sh patch

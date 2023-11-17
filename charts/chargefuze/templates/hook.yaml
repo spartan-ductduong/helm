@@ -1,5 +1,0 @@
-{{- range .Values.hooks }}
-  {{ if and .enabled .commands }}
-  {{- include "chargefuze.hook" (dict "hook" . "Values" $.Values "Chart" $.Chart "Release" $.Release) }}
-  {{- end }}
-{{- end }}

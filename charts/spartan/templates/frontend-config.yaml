@@ -3,7 +3,7 @@
 apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
 metadata:
-  name: {{ include "chargefuze.fullname" $ }}-frontend-config
+  name: {{ include "spartan.fullname" $ }}-frontend-config
 spec:
   {{- with .Values.gcp.frontendConfig }}
     {{- toYaml . | nindent 2 }}

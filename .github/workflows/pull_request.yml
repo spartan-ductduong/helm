@@ -12,11 +12,11 @@ jobs:
       - name: helm-check-default
         uses: igabaydulin/helm-check-action@0.1.4
         env:
-          CHART_LOCATION: ./charts/chargefuze
-          CHART_VALUES: ./charts/chargefuze/values.yaml
+          CHART_LOCATION: ./charts/spartan
+          CHART_VALUES: ./charts/spartan/values.yaml
 
       - name: helm-check-enabled-all
         uses: igabaydulin/helm-check-action@0.1.4
         env:
-          CHART_LOCATION: ./charts/chargefuze
+          CHART_LOCATION: ./charts/spartan
           CHART_VALUES: ./test/values.yaml

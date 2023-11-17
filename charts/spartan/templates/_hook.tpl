@@ -1,10 +1,10 @@
-{{ define "chargefuze.hook" }}
+{{ define "spartan.hook" }}
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "chargefuze.fullname" $ }}-hook-{{ .hook.name}}
+  name: {{ include "spartan.fullname" $ }}-hook-{{ .hook.name}}
   labels:
-    {{- include "chargefuze.labels" . | nindent 4 }}
+    {{- include "spartan.labels" . | nindent 4 }}
     tier: "hook"
   annotations:
     "helm.sh/hook": "post-install,pre-upgrade"
@@ -26,13 +26,13 @@ spec:
       {{- end }}
       {{- end }}
       labels:
-          {{- include "chargefuze.selectorLabels" . | nindent 8 }}
+          {{- include "spartan.selectorLabels" . | nindent 8 }}
     spec:
         {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
           {{- toYaml . | nindent 8 }}
         {{- end }}
-      serviceAccountName: {{ include "chargefuze.serviceAccountName" . }}
+      serviceAccountName: {{ include "spartan.serviceAccountName" . }}
       securityContext:
           {{- toYaml .Values.podSecurityContext | nindent 8 }}
       restartPolicy: {{ .hook.restartPolicy | default "Never" }}
@@ -58,7 +58,7 @@ spec:
           envFrom:
               {{- if .Values.secret.asEnv.enabled }}
             - secretRef:
-                name: {{ include "chargefuze.secretAsEnv" . }}
+                name: {{ include "spartan.secretAsEnv" . }}
               {{- end }}
               {{- if .Values.secret.externalSecretEnv.enabled }}
             - secretRef:
@@ -66,7 +66,7 @@ spec:
               {{- end }}
               {{- if .Values.configMap.asEnv.enabled }}
             - configMapRef:
-                name: {{ include "chargefuze.configMapAsEnv" . }}
+                name: {{ include "spartan.configMapAsEnv" . }}
               {{- end }}
               {{- if .Values.configMap.externalConfigMapEnv.enabled }}
             - configMapRef:
@@ -74,7 +74,7 @@ spec:
               {{- end }}
           volumeMounts:
             {{- if .Values.secret.asFile.enabled }}
-            - name: {{ include "chargefuze.secretAsFile" . }}
+            - name: {{ include "spartan.secretAsFile" . }}
               readOnly: true
               mountPath: {{ .Values.secret.asFile.mountPath | quote }}
             {{- end }}
@@ -84,7 +84,7 @@ spec:
               mountPath: {{ .Values.secret.externalSecretFile.mountPath | quote }}
             {{- end }}
             {{- if .Values.configMap.asFile.enabled }}
-            - name: {{ include "chargefuze.configMapAsFile" . }}
+            - name: {{ include "spartan.configMapAsFile" . }}
               readOnly: true
               mountPath: {{ .Values.configMap.asFile.mountPath | quote }}
             {{- end }}
@@ -107,9 +107,9 @@ spec:
         {{- end }}
       volumes:
         {{- if .Values.secret.asFile.enabled }}
-        - name: {{ include "chargefuze.secretAsFile" . }}
+        - name: {{ include "spartan.secretAsFile" . }}
           secret:
-            secretName: {{ include "chargefuze.secretAsFile" . }}
+            secretName: {{ include "spartan.secretAsFile" . }}
         {{- end }}
         {{- if .Values.secret.externalSecretFile.enabled }}
         - name: {{ .Values.secret.externalSecretFile.name }}
@@ -117,9 +117,9 @@ spec:
             secretName: {{ .Values.secret.externalSecretFile.name }}
         {{- end }}
         {{- if .Values.configMap.asFile.enabled }}
-        - name: {{ include "chargefuze.configMapAsFile" . }}
+        - name: {{ include "spartan.configMapAsFile" . }}
           configMap:
-            name: {{ include "chargefuze.configMapAsFile" . }}
+            name: {{ include "spartan.configMapAsFile" . }}
         {{- end }}
         {{- if .Values.configMap.externalConfigMapFile.enabled }}
         - name: {{ .Values.configMap.externalConfigMapFile.name }}

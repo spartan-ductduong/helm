@@ -51,25 +51,4 @@ entries:
     urls:
     - chargefuze-0.1.0.tgz
     version: 0.1.0
-  spartan:
-  - apiVersion: v2
-    appVersion: 0.3.0
-    created: "2023-11-17T08:50:20.113192961Z"
-    description: A Helm chart for Kubernetes
-    digest: f05898de9fcee6dd2acff35593945cfd03fed2eab86c576b0f81e34998f0a0e5
-    name: spartan
-    type: application
-    urls:
-    - spartan-0.3.0.tgz
-    version: 0.3.0
-  - apiVersion: v2
-    appVersion: 0.2.0
-    created: "2023-11-17T08:50:20.112381772Z"
-    description: A Helm chart for Kubernetes
-    digest: becba2653265c3829f076eff3f9e376e2d339911699b4bd992d5d612abe22d62
-    name: spartan
-    type: application
-    urls:
-    - spartan-0.2.0.tgz
-    version: 0.2.0
 generated: "2023-11-17T08:50:20.1023793Z"

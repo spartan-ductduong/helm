@@ -1,4 +1,4 @@
-name: Create Patch Release
+name: Create Major Release
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Bump version
         run: |
-          ./tools/create_release.sh patch
+          ./tools/create_release.sh major
 
       - name: Sync repo
         run: |

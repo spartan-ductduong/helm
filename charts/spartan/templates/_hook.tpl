@@ -36,8 +36,11 @@ spec:
       securityContext:
           {{- toYaml .Values.podSecurityContext | nindent 8 }}
       restartPolicy: {{ .hook.restartPolicy | default "Never" }}
+      {{- if .Values.datadog.enabled }}
+      shareProcessNamespace: true
+      {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "spartan.containerName" . }}
           securityContext:
               {{- toYaml .Values.securityContext | nindent 12 }}
           {{- if .hook.customImage.enabled }}
@@ -72,6 +75,30 @@ spec:
             - configMapRef:
                 name: {{ .Values.configMap.externalConfigMapEnv.name }}
               {{- end }}
+          {{- if .Values.datadog.enabled }}
+          env:
+            - name: DD_KUBERNETES_KUBELET_NODENAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: DD_LOGS_ENABLED
+              value: "true"
+            - name: DD_LOGS_INJECTION
+              value: "true"
+            - name: DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL
+              value: "true"
+            - name: DD_PROFILING_ENABLED
+              value: "true"
+            - name: DD_ORCHESTRATOR_EXPLORER_ENABLED
+              value: "true"
+            - name: DD_PROCESS_AGENT_ENABLED
+              value: "true"
+            - name: DD_CLUSTER_AGENT_ENABLED
+              value: "true"
+            - name: DD_APM_ENABLED
+              value: "true"
+          {{- end }}
           volumeMounts:
             {{- if .Values.secret.asFile.enabled }}
             - name: {{ include "spartan.secretAsFile" . }}
@@ -93,6 +120,18 @@ spec:
               readOnly: true
               mountPath: {{ .Values.configMap.externalConfigMapFile.mountPath | quote }}
             {{- end }}
+            {{- range .Values.sidecars }}
+            {{- if .sharedVolume }}
+            - name: sidecar-volume
+              readOnly: false
+              mountPath: {{ .sharedVolume.mountPath }}
+              subPath: {{ .name }}
+            {{- end }}
+            {{- end }}
+
+        {{- range $sidecar := .Values.sidecars }}
+        {{ include "sidecar.template" (dict "sidecar" $sidecar "Values" $.Values "Chart" $.Chart "Release" $.Release) | indent 8 }}
+        {{- end }}
         {{- with .Values.nodeSelector }}
       nodeSelector:
           {{- toYaml . | nindent 8 }}
@@ -125,5 +164,9 @@ spec:
         - name: {{ .Values.configMap.externalConfigMapFile.name }}
           configMap:
             name: {{ .Values.configMap.externalConfigMapFile.name }}
+        {{- end }}
+        {{- if .Values.sidecars }}
+        - name: sidecar-volume
+          emptyDir: {}
         {{- end }}
 {{- end }}

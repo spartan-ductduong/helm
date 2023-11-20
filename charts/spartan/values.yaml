@@ -15,6 +15,7 @@ containerPort: 8080
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+containerName: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -168,7 +169,6 @@ configMap:
 
 workers: {}
 #  - name: worker-1
-#    enabled: false
 #    command: "echo worker-1"
 #    replicaCount: 1
 #    terminationGracePeriodSeconds: 180
@@ -177,7 +177,6 @@ workers: {}
 
 hooks: {}
 #  - name: "ls"
-#    enabled: false
 #    hookTypes: "post-install,post-upgrade"
 #    hookWeight: 0
 #    commands:
@@ -189,3 +188,33 @@ hooks: {}
 #    podAnnotations: {}
 #    restartPolicy: Never
 #    backoffLimit: 0
+
+sidecars: []
+  # - name: datadog-agent
+  #   image: datadog/agent
+  #   ports:
+  #     - containerPort: 8125
+  #       name: dogstatsdport
+  #       protocol: UDP
+  #     - containerPort: 8126
+  #       name: traceport
+  #       protocol: TCP
+  #   sharedVolume:
+  #     mountPath: /var/log/application/
+
+  # - name: busybox
+  #   image: busybox
+  #   ports:
+  #     - containerPort: 80
+  #       name: http
+  #   resources:
+  #     requests:
+  #       memory: 100Mi
+  #       cpu: 10m
+  #     limits:
+  #       memory: 100Mi
+  #       cpu: 10m
+  #   command: "echo $(date) INFO hello >> /tmp/data/myapp.log && sleep 3"
+
+datadog:
+  enabled: false

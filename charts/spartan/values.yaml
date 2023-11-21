@@ -16,6 +16,8 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 containerName: ""
+# Used for app.kubernetes.io/name k8s resources label
+appNameLabel: ""
 
 serviceAccount:
   # Specifies whether a service account should be created

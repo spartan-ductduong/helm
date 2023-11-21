@@ -16,6 +16,7 @@ imagePullSecrets: []
 nameOverride: "run-helm-check"
 fullnameOverride: ""
 containerName: ""
+appNameLabel: ""
 
 
 serviceAccount:

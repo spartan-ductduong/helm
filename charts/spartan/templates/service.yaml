@@ -6,8 +6,10 @@ metadata:
   {{- if .Values.service.annotations }}
   {{- toYaml .Values.service.annotations | nindent 4 }}
   {{- end }}
-  {{- if .Values.backendConfig }}
+  {{- if .Values.gcp.enabled }}
+  {{- if .Values.gcp.backendConfig }}
     cloud.google.com/backend-config: '{"default": "{{ include "spartan.fullname" $ }}-backend-config"}'
+  {{- end }}
   {{- end }}
   labels:
     {{- include "spartan.labels" . | nindent 4 }}

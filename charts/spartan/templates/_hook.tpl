@@ -7,7 +7,7 @@ metadata:
     {{- include "spartan.labels" . | nindent 4 }}
     tier: "hook"
   annotations:
-    "helm.sh/hook": "post-install,pre-upgrade"
+    "helm.sh/hook": {{ .hook.hookTypes | quote }}
     "helm.sh/hook-weight": "{{ .hook.hookWeight | default "0" }}"
     "helm.sh/resource-policy": keep
 spec:

@@ -169,8 +169,15 @@ configMap:
     name: external-config-map-file
     mountPath: "/data/config"
 
+extraEnvs:
+ - name: SERVICE
+   value: nginx
+ - name: VERSION
+   value: "1.0.0"
+
 workers:
   - name: worker-1
+    shell: /bin/bash
     command: "echo worker-1"
     replicaCount: 1
     terminationGracePeriodSeconds: 180
@@ -181,6 +188,7 @@ hooks:
   - name: "ls"
     hookTypes: "post-install,post-upgrade"
     hookWeight: 0
+    shell: /bin/bash
     commands:
       - ls -la
     resources: {}
@@ -216,7 +224,11 @@ sidecars:
       limits:
         memory: 100Mi
         cpu: 10m
+    shell: /bin/bash
     command: "echo $(date) INFO hello >> /tmp/data/myapp.log && sleep 3"
 
+# This field supports the datadog agent as sidecar pattern
+# It will add additional environment variables for datadog
+# It will also add stop condition for datadog agent container
 datadog:
   enabled: true

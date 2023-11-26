@@ -41,7 +41,7 @@ spec:
       containers:
         - name: {{ include "spartan.containerName" . }}
           command:
-            - /bin/sh
+            - {{ default "/bin/sh" .worker.shell }}
             - -c
             - {{ .worker.command }}
           securityContext:
@@ -67,8 +67,8 @@ spec:
             - configMapRef:
                 name: {{ .Values.configMap.externalConfigMapEnv.name }}
             {{- end }}
-          {{- if .Values.datadog.enabled }}
           env:
+          {{- if .Values.datadog.enabled }}
             - name: DD_KUBERNETES_KUBELET_NODENAME
               valueFrom:
                 fieldRef:
@@ -90,6 +90,9 @@ spec:
               value: "true"
             - name: DD_APM_ENABLED
               value: "true"
+          {{- end }}
+          {{- if .Values.extraEnvs -}}
+          {{ toYaml .Values.extraEnvs | nindent 12 }}
           {{- end }}
           volumeMounts:
           {{- if .Values.secret.asFile.enabled }}

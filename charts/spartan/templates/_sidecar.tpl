@@ -5,7 +5,7 @@
   imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
   {{- if .sidecar.command }}
   command: 
-  - /bin/sh
+  - {{ default "/bin/sh" .sidecar.shell }}
   - -c 
   - while ! [ -f /tmp/kill_me ]; do {{ .sidecar.command }}; done;
   {{- end }}
@@ -26,8 +26,8 @@
     - configMapRef:
         name: {{ .Values.configMap.externalConfigMapEnv.name }}
     {{- end }}
-  {{- if eq .sidecar.name "datadog-agent" }}
   env:
+  {{- if eq .sidecar.name "datadog-agent" }}
     - name: DD_KUBERNETES_KUBELET_NODENAME
       valueFrom:
         fieldRef:
@@ -49,7 +49,10 @@
       value: "true"
     - name: DD_APM_ENABLED
       value: "true"
-  {{- end}}
+  {{- end }}
+  {{- if .Values.extraEnvs -}}
+  {{ toYaml .Values.extraEnvs | nindent 4 }}
+  {{- end }}
   {{- if .sidecar.ports}}
   ports: {{- toYaml .sidecar.ports | nindent 4 }}
   {{- end }}

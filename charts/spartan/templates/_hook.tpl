@@ -50,9 +50,14 @@ spec:
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            - /bin/sh
+            - {{ default "/bin/sh" .hook.shell }}
             - -c
             - |
+            {{- if .Values.datadog.enabled }}
+              trap 'sleep 10 && pkill agent' EXIT
+              set -o pipefail
+              if [ ! `which curl` ]; then sleep 300; else while ! curl -Ns localhost:8126; do sleep 1 && echo "Waiting for datadog agent to start...."; done; fi
+            {{- end }}
             {{- range .hook.commands }}
               {{ . }}
             {{- end }}
@@ -75,8 +80,8 @@ spec:
             - configMapRef:
                 name: {{ .Values.configMap.externalConfigMapEnv.name }}
               {{- end }}
-          {{- if .Values.datadog.enabled }}
           env:
+          {{- if .Values.datadog.enabled }}
             - name: DD_KUBERNETES_KUBELET_NODENAME
               valueFrom:
                 fieldRef:
@@ -98,6 +103,9 @@ spec:
               value: "true"
             - name: DD_APM_ENABLED
               value: "true"
+          {{- end }}
+          {{- if .Values.extraEnvs -}}
+          {{ toYaml .Values.extraEnvs | nindent 12 }}
           {{- end }}
           volumeMounts:
             {{- if .Values.secret.asFile.enabled }}

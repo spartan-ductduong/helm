@@ -59,7 +59,7 @@ Selector labels
 {{- define "spartan.selectorLabels" -}}
 {{- if .Values.appNameLabel -}}
 app.kubernetes.io/name: {{ .Values.appNameLabel }}
-{{- else }}
+{{- else -}}
 app.kubernetes.io/name: {{ include "spartan.name" . }}
 {{- end }}
 app.kubernetes.io/instance: {{ .Release.Name }}

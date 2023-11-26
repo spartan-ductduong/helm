@@ -3,7 +3,7 @@ entries:
   chargefuze:
   - apiVersion: v2
     appVersion: 0.1.4
-    created: "2023-11-21T15:54:15.35788861Z"
+    created: "2023-11-26T03:29:56.983595491Z"
     description: A Helm chart for Kubernetes
     digest: 7b42481d26f6890364113836b31b791c160effbf5424620afb9cb18b1c6b111b
     name: chargefuze
@@ -13,7 +13,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2023-11-21T15:54:15.357128115Z"
+    created: "2023-11-26T03:29:56.976057204Z"
     description: A Helm chart for Kubernetes
     digest: 6039588c36dc2fe90649dc57cfa7ebf0db1c22acc2c4c135a5908a6fd7097aad
     name: chargefuze
@@ -23,7 +23,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 0.1.2
-    created: "2023-11-21T15:54:15.356570218Z"
+    created: "2023-11-26T03:29:56.975496497Z"
     description: A Helm chart for Kubernetes
     digest: d49231bf5a488a8fc8823d21b592a8e9c698cf685ad9bbf61a43e4a2b2c05ffa
     name: chargefuze
@@ -33,7 +33,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 0.1.1
-    created: "2023-11-21T15:54:15.355995422Z"
+    created: "2023-11-26T03:29:56.974469986Z"
     description: A Helm chart for Kubernetes
     digest: 030f7403faa94b518a35f2c406103b15ae5a4bb22757713bd14916adc3c44885
     name: chargefuze
@@ -43,7 +43,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2023-11-21T15:54:15.355350427Z"
+    created: "2023-11-26T03:29:56.973931879Z"
     description: A Helm chart for Kubernetes
     digest: 5fec1ee4b73e94b3acf7fbfc27c5ef8071b47136ea44495f8bfb5abff445fabb
     name: chargefuze
@@ -53,8 +53,18 @@ entries:
     version: 0.1.0
   spartan:
   - apiVersion: v2
+    appVersion: 1.0.2
+    created: "2023-11-26T03:29:56.98697353Z"
+    description: A Helm chart for Kubernetes
+    digest: 1f02bca9ddef7d77fc4be7c698ca64e6e43d2932b145fd75b25c5e49353619e1
+    name: spartan
+    type: application
+    urls:
+    - spartan-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     appVersion: 1.0.1
-    created: "2023-11-21T15:54:15.360353393Z"
+    created: "2023-11-26T03:29:56.98614812Z"
     description: A Helm chart for Kubernetes
     digest: 7436d35a1a330c1faae115cf3656b8533b1f03dd6dfb6450a121c5a28c8b953e
     name: spartan
@@ -64,7 +74,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-11-21T15:54:15.359556198Z"
+    created: "2023-11-26T03:29:56.98528801Z"
     description: A Helm chart for Kubernetes
     digest: bdcb7bc5730b26d7b6e4f65c1bed4c9f189bd0164e3e7a61bde09371e1e86161
     name: spartan
@@ -74,7 +84,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2023-11-21T15:54:15.358734704Z"
+    created: "2023-11-26T03:29:56.9844162Z"
     description: A Helm chart for Kubernetes
     digest: fab37cc58d5eaf87286be799258c9e94440dac11cd77bc0461e7a8c4cfc5e1df
     name: spartan
@@ -82,4 +92,4 @@ entries:
     urls:
     - spartan-0.2.0.tgz
     version: 0.2.0
-generated: "2023-11-21T15:54:15.308603842Z"
+generated: "2023-11-26T03:29:56.973213771Z"

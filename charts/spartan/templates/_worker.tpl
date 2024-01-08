@@ -11,6 +11,7 @@ spec:
   selector:
     matchLabels:
       {{- include "spartan.selectorLabels" $ | nindent 6 }}
+      tier: "worker"
   template:
     metadata:
       {{- if .worker.podAnnotations }}
@@ -26,6 +27,7 @@ spec:
       {{- end }}
       labels:
         {{- include "spartan.selectorLabels" $ | nindent 8 }}
+        tier: "worker"
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

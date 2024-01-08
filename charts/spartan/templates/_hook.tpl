@@ -17,7 +17,7 @@ spec:
       {{- if .hook.podAnnotations }}
       {{- with .hook.podAnnotations }}
       annotations:
-          {{- toYaml . | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- else }}
       {{- with .Values.podAnnotations }}
@@ -26,7 +26,8 @@ spec:
       {{- end }}
       {{- end }}
       labels:
-          {{- include "spartan.selectorLabels" . | nindent 8 }}
+        {{- include "spartan.selectorLabels" . | nindent 8 }}
+        tier: "hook"
     spec:
         {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

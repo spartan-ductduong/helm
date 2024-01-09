@@ -12,7 +12,6 @@ spec:
   selector:
     matchLabels:
       {{- include "spartan.selectorLabels" . | nindent 6 }}
-      tier: "application"
   template:
     metadata:
       {{- with .Values.podAnnotations }}

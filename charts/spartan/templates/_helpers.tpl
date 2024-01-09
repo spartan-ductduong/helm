@@ -66,6 +66,30 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Hook labels
+*/}}
+{{- define "spartan.hookLabels" -}}
+{{- if .Values.appNameLabel -}}
+app.kubernetes.io/name: {{ .Values.appNameLabel }}-hook
+{{- else -}}
+app.kubernetes.io/name: {{ include "spartan.name" . }}-hook
+{{- end }}
+app.kubernetes.io/instance: {{ .Release.Name }}-hook
+{{- end }}
+
+{{/*
+Worker labels
+*/}}
+{{- define "spartan.workerLabels" -}}
+{{- if .Values.appNameLabel -}}
+app.kubernetes.io/name: {{ .Values.appNameLabel }}-worker
+{{- else -}}
+app.kubernetes.io/name: {{ include "spartan.name" . }}-worker
+{{- end }}
+app.kubernetes.io/instance: {{ .Release.Name }}-worker
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "spartan.serviceAccountName" -}}

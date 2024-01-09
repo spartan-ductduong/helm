@@ -10,7 +10,7 @@ spec:
   replicas: {{ .worker.replicaCount | default 1 }}
   selector:
     matchLabels:
-      {{- include "spartan.selectorLabels" $ | nindent 6 }}
+      {{- include "spartan.workerLabels" $ | nindent 6 }}
       tier: "worker"
   template:
     metadata:
@@ -26,7 +26,7 @@ spec:
       {{- end }}
       {{- end }}
       labels:
-        {{- include "spartan.selectorLabels" $ | nindent 8 }}
+        {{- include "spartan.workerLabels" $ | nindent 8 }}
         tier: "worker"
     spec:
       {{- with .Values.imagePullSecrets }}

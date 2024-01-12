@@ -8,6 +8,7 @@ GITHUB_ORGS=(
   charge-fuze
   Liquidity-Financial
   NuKeyHQ
+  foresight-reporting
 )
 
 for org in "${GITHUB_ORGS[@]}"; do

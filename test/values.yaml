@@ -232,3 +232,14 @@ sidecars:
 # It will also add stop condition for datadog agent container
 datadog:
   enabled: true
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 25%
+    maxUnavailable: 25%
+
+pdb:
+  enabled: true
+  minAvailable: 1
+  maxUnavailable: ""

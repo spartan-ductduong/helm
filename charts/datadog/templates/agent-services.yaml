@@ -78,45 +78,11 @@ metadata:
 {{ include "datadog.labels" . | indent 4 }}
 spec:
   selector:
-    app: {{ template "datadog.fullname" . }}
-  ports:
-    - protocol: UDP
-      port: {{ .Values.datadog.dogstatsd.port }}
-      targetPort: {{ .Values.datadog.dogstatsd.port }}
-      name: dogstatsdport
-    - protocol: TCP
-      port: {{ .Values.datadog.apm.port }}
-      targetPort: {{ .Values.datadog.apm.port }}
-      name: traceport
-{{- if .Values.datadog.otlp.receiver.protocols.grpc.enabled }}
-    - protocol: TCP
-      port: {{ .Values.datadog.otlp.receiver.protocols.grpc.endpoint | regexFind ":[0-9]+$" | trimPrefix ":" }}
-      targetPort: {{ .Values.datadog.otlp.receiver.protocols.grpc.endpoint | regexFind ":[0-9]+$" | trimPrefix ":" }}
-      name: otlpgrpcport
-{{- end }}
-{{- if .Values.datadog.otlp.receiver.protocols.http.enabled }}
-    - protocol: TCP
-      port: {{ .Values.datadog.otlp.receiver.protocols.http.endpoint | regexFind ":[0-9]+$" | trimPrefix ":" }}
-      targetPort: {{ .Values.datadog.otlp.receiver.protocols.http.endpoint | regexFind ":[0-9]+$" | trimPrefix ":" }}
-      name: otlphttpport
- {{- end }}
-  internalTrafficPolicy: Local
----
-apiVersion: v1
-kind: Service
-
-metadata:
-  name: {{ template "localService.name" . }}-apm
-  namespace: {{ .Release.Namespace }}
-  labels:
-    app: "{{ template "datadog.fullname" . }}-apm"
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    release: {{ .Release.Name | quote }}
-    heritage: {{ .Release.Service | quote }}
-{{ include "datadog.labels-apm" . | indent 4 }}
-spec:
-  selector:
-    app: {{ template "datadog.fullname" . }}-apm
+    {{- if .Values.agents.enableDeployment }}
+    app: "{{ template "datadog.fullname" . }}-deployment"
+    {{- else }}
+    app: "{{ template "datadog.fullname" . }}"
+    {{- end }}
   ports:
     - protocol: UDP
       port: {{ .Values.datadog.dogstatsd.port }}

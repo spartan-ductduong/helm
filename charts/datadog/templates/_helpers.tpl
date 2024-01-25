@@ -585,9 +585,9 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Common template labels for APM
 */}}
-{{- define "datadog.template-labels-apm" -}}
-app.kubernetes.io/name: "{{ template "datadog.fullname" . }}-apm"
-app.kubernetes.io/instance: "{{ .Release.Name }}-apm"
+{{- define "datadog.template-labels-deployment" -}}
+app.kubernetes.io/name: "{{ template "datadog.fullname" . }}-deployment"
+app.kubernetes.io/instance: "{{ .Release.Name }}-deployment"
 app.kubernetes.io/managed-by: "{{ .Release.Service }}"
 {{- end -}}
 
@@ -608,9 +608,9 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{/*
 Common labels for APM
 */}}
-{{- define "datadog.labels-apm" -}}
+{{- define "datadog.labels-deployment" -}}
 helm.sh/chart: '{{ include "datadog.chart" . }}'
-{{ include "datadog.template-labels-apm" . }}
+{{ include "datadog.template-labels-deployment" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}

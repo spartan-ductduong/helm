@@ -1298,6 +1298,8 @@ agents:
   ## get guaranteed delivery of the metrics in Datadog-per-namespace setup!
   enabled: true
 
+  enableDeployment: false
+
   # agents.shareProcessNamespace -- Set the process namespace sharing on the Datadog Daemonset
   shareProcessNamespace: false
 

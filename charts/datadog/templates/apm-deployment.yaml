@@ -1,13 +1,13 @@
 {{- template "check-version" . }}
-{{- if .Values.agents.enabled }}
+{{- if and .Values.agents.enabled .Values.agents.enableDeployment }}
 {{- if (or (.Values.datadog.apiKeyExistingSecret) (.Values.datadog.apiKey)) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "datadog.fullname" . }}-apm
+  name: {{ template "datadog.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-{{ include "datadog.labels-apm" . | indent 4 }}
+{{ include "datadog.labels-deployment" . | indent 4 }}
     app.kubernetes.io/component: agent
     {{- if .Values.agents.additionalLabels }}
 {{ toYaml .Values.agents.additionalLabels | indent 4 }}
@@ -20,16 +20,16 @@ spec:
   revisionHistoryLimit: {{ .Values.agents.revisionHistoryLimit }}
   selector:
     matchLabels:
-      app: {{ template "datadog.fullname" . }}-apm
+      app: {{ template "datadog.fullname" . }}-deployment
         {{- if .Values.agents.podLabels }}
 {{ toYaml .Values.agents.podLabels | indent 6 }}
         {{- end }}
   template:
     metadata:
       labels:
-{{ include "datadog.template-labels-apm" . | indent 8 }}
+{{ include "datadog.template-labels-deployment" . | indent 8 }}
         app.kubernetes.io/component: agent
-        app: {{ template "datadog.fullname" . }}-apm
+        app: {{ template "datadog.fullname" . }}-deployment
         {{- if .Values.agents.podLabels }}
 {{ toYaml .Values.agents.podLabels | indent 8 }}
         {{- end }}
@@ -37,7 +37,7 @@ spec:
 {{ toYaml .Values.agents.additionalLabels | indent 8 }}
         {{- end }}
 {{ (include "provider-labels" .) | indent 8 }}
-      name: {{ template "datadog.fullname" . }}-apm
+      name: {{ template "datadog.fullname" . }}-deployment
       annotations:
         checksum/clusteragent_token: {{ include (print $.Template.BasePath "/secret-cluster-agent-token.yaml") . | sha256sum }}
         {{- if not .Values.datadog.apiKeyExistingSecret }}

@@ -1,5 +1,5 @@
 {{- template "check-version" . }}
-{{- if and .Values.agents.enabled .Values.agents.enableDeployment }}
+{{- if and .Values.agents.enabled .Values.agents.deployment.enabled }}
 {{- if (or (.Values.datadog.apiKeyExistingSecret) (.Values.datadog.apiKey)) }}
 apiVersion: apps/v1
 kind: Deployment

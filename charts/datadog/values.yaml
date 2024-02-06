@@ -1298,7 +1298,16 @@ agents:
   ## get guaranteed delivery of the metrics in Datadog-per-namespace setup!
   enabled: true
 
-  enableDeployment: false
+  deployment: 
+    enabled: false
+    resources: {}
+      # requests:
+      #   cpu: 200m
+      #   memory: 256Mi
+      # limits:
+      #   cpu: 200m
+      #   memory: 256Mi
+
 
   # agents.shareProcessNamespace -- Set the process namespace sharing on the Datadog Daemonset
   shareProcessNamespace: false

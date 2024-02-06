@@ -1,4 +1,4 @@
-{{- define "container-process-agent" -}}
+{{- define "container-process-agent-deployment" -}}
 - name: process-agent
   image: "{{ include "image-path" (dict "root" .Values "image" .Values.agents.image) }}"
   imagePullPolicy: {{ .Values.agents.image.pullPolicy }}

@@ -120,7 +120,7 @@ spec:
           {{- include "fips-proxy" . | nindent 6 }}
         {{- end }}
         {{- if .Values.datadog.processAgent.enabled }}
-          {{- include "container-process-agent" . | nindent 6 }}
+          {{- include "container-process-agent-deployment" . | nindent 6 }}
         {{- end }}
         {{- if eq (include "should-enable-system-probe" .) "true" }}
           {{- include "container-system-probe" . | nindent 6 }}

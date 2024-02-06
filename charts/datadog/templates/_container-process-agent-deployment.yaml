@@ -14,7 +14,7 @@
 {{ toYaml .Values.agents.containers.processAgent.ports | indent 2 }}
 {{- end }}
   resources:
-{{ toYaml .Values.agents.containers.processAgent.resources | indent 4 }}
+{{ toYaml .Values.agents.deployment.resources | indent 4 }}
 {{- if or .Values.datadog.envFrom .Values.agents.containers.processAgent.envFrom }}
   envFrom:
 {{- if .Values.datadog.envFrom }}

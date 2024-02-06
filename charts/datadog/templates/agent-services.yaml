@@ -78,7 +78,7 @@ metadata:
 {{ include "datadog.labels" . | indent 4 }}
 spec:
   selector:
-    {{- if .Values.agents.enableDeployment }}
+    {{- if .Values.agents.deployment.enabled }}
     app: "{{ template "datadog.fullname" . }}-deployment"
     {{- else }}
     app: "{{ template "datadog.fullname" . }}"

@@ -112,9 +112,9 @@ spec:
       priorityClassName: {{ .Values.agents.priorityClassName | default (include "datadog.fullname" . ) }}
       {{- end }}
       containers:
-        {{- include "container-agent" . | nindent 6 }}
+        {{- include "container-agent-deployment" . | nindent 6 }}
         {{- if eq (include "should-enable-trace-agent" .) "true" }}
-          {{- include "container-trace-agent" . | nindent 6 }}
+          {{- include "container-trace-agent-deployment" . | nindent 6 }}
         {{- end }}
         {{- if eq  (include "should-enable-fips" .) "true" }}
           {{- include "fips-proxy" . | nindent 6 }}

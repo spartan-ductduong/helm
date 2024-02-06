@@ -1,4 +1,4 @@
-{{- define "container-trace-agent" -}}
+{{- define "container-trace-agent-deployment" -}}
 - name: trace-agent
   image: "{{ include "image-path" (dict "root" .Values "image" .Values.agents.image) }}"
   imagePullPolicy: {{ .Values.agents.image.pullPolicy }}
@@ -10,7 +10,7 @@
   {{- end -}}
 {{ include "generate-security-context" (dict "securityContext" .Values.agents.containers.traceAgent.securityContext "targetSystem" .Values.targetSystem "seccomp" "" "kubeversion" .Capabilities.KubeVersion.Version) | indent 2 }}
   resources:
-{{ toYaml .Values.agents.containers.traceAgent.resources | indent 4 }}
+{{ toYaml .Values.agents.deployment.resources | indent 4 }}
   ports:
   - containerPort: {{ .Values.datadog.apm.port }}
     name: traceport

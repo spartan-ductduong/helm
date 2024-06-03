@@ -128,3 +128,27 @@ ConfigMap as files
 {{- printf "%s-%s" (include "spartan.fullname" .) "cm-as-env" }}
 {{- end }}
 
+{{/*
+Get lowest hook weight
+*/}}
+{{- define "spartan.lowestHookWeight" -}}
+{{- $hookWeight := 1000 }}
+{{- range $hook := .Values.hooks }}
+    {{- if lt (int $hook.hookWeight) (int $hookWeight) }}
+        {{- $hookWeight = $hook.hookWeight }}
+    {{- end }}
+{{- end }}
+{{- sub (int $hookWeight) 1 }}
+{{- end }}
+
+{{/*
+Get combine hook types
+*/}}
+{{- define "spartan.combineHookTypes" -}}
+{{- $hookTypes := list "" }}
+{{- range $hook := .Values.hooks }}
+    {{- $hookTypes = append $hookTypes $hook.hookTypes }}
+{{- end }}
+{{- $uniqueHookTypes := uniq $hookTypes }}
+{{- join "," $uniqueHookTypes | trimPrefix "," }}
+{{- end }}

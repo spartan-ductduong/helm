@@ -152,3 +152,26 @@ Get combine hook types
 {{- $uniqueHookTypes := uniq $hookTypes }}
 {{- join "," $uniqueHookTypes | trimPrefix "," }}
 {{- end }}
+
+{{/*
+Get list of resources type
+*/}}
+{{- define "spartan.resources" -}}
+{{- $resources := list "" }}
+{{- $resourceLimits := .Values.resources.limits }}
+{{- if $resourceLimits.cpu }}
+    {{- $resources = append $resources "cpu" }}
+{{- end }}
+{{- if $resourceLimits.memory }}
+    {{- $resources = append $resources "memory" }}
+{{- end }}
+{{- $resourceRequests := .Values.resources.requests }}
+{{- if $resourceRequests.cpu }}
+    {{- $resources = append $resources "cpu" }}
+{{- end }}
+{{- if $resourceRequests.memory }}
+    {{- $resources = append $resources "memory" }}
+{{- end }}
+{{- $resources = uniq $resources }}
+{{- join "," $resources | trimPrefix "," }}
+{{- end }}

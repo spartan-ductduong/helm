@@ -176,13 +176,19 @@ extraEnvs: []
 #    value: 1.0.0
 
 workers: {}
-#  - name: worker-1
-#    shell: /bin/bash
-#    command: "echo worker-1"
-#    replicaCount: 1
-#    terminationGracePeriodSeconds: 180
-#    resources: {}
-#    podAnnotations: {}
+  # - name: worker-1
+  #   shell: /bin/bash
+  #   command: "echo worker-1"
+  #   replicaCount: 1
+  #   terminationGracePeriodSeconds: 180
+  #   resources: {}
+  #   podAnnotations: {}
+  #   autoscaling:
+  #     enabled: true
+  #     minReplicas: 2
+  #     maxReplicas: 10
+  #     targetCPUUtilizationPercentage: 80
+  #     targetMemoryUtilizationPercentage: 80
 
 hooks: {}
 #  - name: "ls"

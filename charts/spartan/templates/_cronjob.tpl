@@ -6,7 +6,7 @@ metadata:
   labels:
   {{- include "spartan.labels" $ | nindent 4 }}
 spec:
-  schedule: {{- default "0 * * * *" .cronjob.schedule | quote }}
+  schedule: {{ default "0 * * * *" .cronjob.schedule | quote }}
   successfulJobsHistoryLimit: {{ default "3" .cronjob.successfulJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ default "3" .cronjob.failedJobsHistoryLimit }}
   jobTemplate:
@@ -35,7 +35,7 @@ spec:
             {{- else }}
             image: "{{ .cronjob.image.repository }}:{{ .cronjob.image.tag | default "latest" }}"
             {{- end }}
-            imagePullPolicy: {{ default "IfNotPresent" .cronjob.image.pullPolicy }}
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
             resources:
               {{- toYaml .cronjob.resources | nindent 14 }}
             envFrom:
@@ -107,4 +107,45 @@ spec:
                 subPath: {{ .name }}
             {{- end }}
             {{- end }}
+        {{- range $sidecar := .Values.sidecars }}
+        {{ include "sidecar.template" (dict "sidecar" $sidecar "Values" $.Values "Chart" $.Chart "Release" $.Release) | indent 10}}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+      {{- if .Values.secret.asFile.enabled }}
+        - name: {{ include "spartan.secretAsFile" $ }}
+          secret:
+            secretName: {{ include "spartan.secretAsFile" $ }}
+      {{- end }}
+      {{- if .Values.secret.externalSecretFile.enabled }}
+        - name: {{ .Values.secret.externalSecretFile.name }}
+          secret:
+            secretName: {{ .Values.secret.externalSecretFile.name }}
+      {{- end }}
+      {{- if .Values.configMap.asFile.enabled }}
+        - name: {{ include "spartan.configMapAsFile" $ }}
+          configMap:
+            name: {{ include "spartan.configMapAsFile" $ }}
+      {{- end }}
+      {{- if .Values.configMap.externalConfigMapFile.enabled }}
+        - name: {{ .Values.configMap.externalConfigMapFile.name }}
+          configMap:
+            name: {{ .Values.configMap.externalConfigMapFile.name }}
+      {{- end }}
+      {{- if .Values.sidecars }}
+        - name: sidecar-volume
+          emptyDir: {}
+      {{- end }}
+
 {{- end }}

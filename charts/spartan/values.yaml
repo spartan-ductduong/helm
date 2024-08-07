@@ -209,6 +209,18 @@ hooks: {}
 #    restartPolicy: Never
 #    backoffLimit: 0
 
+cronjobs: {}
+#  - name: "cleanup"
+#    shell: /bin/bash
+#    commands:
+#      - ls -la
+#    resources: {}
+#    customImage:
+#      enabled: true
+#      image: busybox
+#    podAnnotations: {}
+#    restartPolicy: Never
+
 sidecars: []
   # - name: datadog-agent
   #   image: datadog/agent

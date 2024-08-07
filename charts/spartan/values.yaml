@@ -211,6 +211,7 @@ hooks: {}
 
 cronjobs: {}
 #  - name: "cleanup"
+#    schedule: "0 * * * *"
 #    shell: /bin/bash
 #    commands:
 #      - ls -la

@@ -107,9 +107,9 @@ spec:
                 subPath: {{ .name }}
             {{- end }}
             {{- end }}
-        {{- range $sidecar := .Values.sidecars }}
-        {{ include "sidecar.template" (dict "sidecar" $sidecar "Values" $.Values "Chart" $.Chart "Release" $.Release) | indent 10}}
-        {{- end }}
+          {{- range $sidecar := .Values.sidecars }}
+          {{ include "sidecar.template" (dict "sidecar" $sidecar "Values" $.Values "Chart" $.Chart "Release" $.Release) | indent 10}}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

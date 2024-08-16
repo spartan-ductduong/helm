@@ -20,3 +20,11 @@ jobs:
         env:
           CHART_LOCATION: ./charts/spartan
           CHART_VALUES: ./test/values.yaml
+
+      - name: Install helm-unittest plugin
+        run: |
+          helm plugin install https://github.com/quintush/helm-unittest
+
+      - name: Run helm-unittest
+        run: |
+          helm unittest .

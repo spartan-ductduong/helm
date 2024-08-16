@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- [Spartan-Chart](https://github.com/c0x12c/infra-helm/tree/master/charts/spartan) Added support for specifying HPA metrics using `autoscaling.metrics`
+- [Spartan-Chart](https://github.com/c0x12c/infra-helm/tree/master/charts/spartan) Added support for specifying HPA metrics using `autoscaling.metrics`. The use of `autoscaling.targetCPUUtilizationPercentage` and `autoscaling.targetMemoryUtilizationPercentage` is now deprecated
 
 ## [1.0.6] - 2024-01-18
 

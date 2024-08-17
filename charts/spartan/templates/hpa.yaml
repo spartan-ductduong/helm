@@ -12,7 +12,18 @@ spec:
     name: {{ include "spartan.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
+
   metrics:
+    # DEPRECATED: The following metrics configuration is deprecated.
+    # Use the `metrics` section defined below instead.
+    # metrics:
+    #   - type: Resource
+    #     resource:
+    #       name: cpu
+    #       target:
+    #         type: Utilization
+    #         averageUtilization: 70
+
     {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
     - type: Resource
       resource:
@@ -21,6 +32,7 @@ spec:
           type: Utilization
           averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
+
     {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
@@ -29,4 +41,13 @@ spec:
           type: Utilization
           averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
+
+    {{- if or .Values.autoscaling.metrics}}
+    {{- toYaml .Values.autoscaling.metrics | nindent 4}}
+    {{- end }}
+
+  {{- if .Values.autoscaling.behavior }}
+  behavior:
+    {{- toYaml .Values.autoscaling.behavior | nindent 4 }}
+  {{- end }}
 {{- end }}

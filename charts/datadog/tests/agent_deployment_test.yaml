@@ -1,0 +1,26 @@
+suite: "agent deployment template tests"
+
+templates:
+  - "templates/agent-deployment.yaml"
+
+tests:
+  - it: "should have agent deployment"
+    set:
+      datadog.apm.enabled: true
+      agents.enabled: true
+      agents.deployment.enabled: true
+      datadog.apiKey: "secret"
+    asserts:
+      - isKind:
+          of: Deployment
+
+  - it: "should have the correct container name"
+    set:
+      datadog.apm.enabled: true
+      agents.enabled: true
+      agents.deployment.enabled: true
+      datadog.apiKey: "secret"
+    asserts:
+      - equal:
+          path: "spec.template.spec.containers[0].name"
+          value: "trace-agent"

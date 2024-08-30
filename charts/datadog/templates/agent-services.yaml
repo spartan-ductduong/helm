@@ -104,5 +104,4 @@ spec:
       targetPort: {{ .Values.datadog.otlp.receiver.protocols.http.endpoint | regexFind ":[0-9]+$" | trimPrefix ":" }}
       name: otlphttpport
  {{- end }}
-  internalTrafficPolicy: Local
 {{ end }}

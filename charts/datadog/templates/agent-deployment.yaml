@@ -1,3 +1,4 @@
+{{- if .Values.datadog.apm.enabled }}
 {{- template "check-version" . }}
 {{- if and .Values.agents.enabled .Values.agents.deployment.enabled }}
 {{- if (or (.Values.datadog.apiKeyExistingSecret) (.Values.datadog.apiKey)) }}
@@ -112,10 +113,7 @@ spec:
       priorityClassName: {{ .Values.agents.priorityClassName | default (include "datadog.fullname" . ) }}
       {{- end }}
       containers:
-        {{- include "container-agent-deployment" . | nindent 6 }}
-        {{- if eq (include "should-enable-trace-agent" .) "true" }}
-          {{- include "container-trace-agent-deployment" . | nindent 6 }}
-        {{- end }}
+        {{- include "container-trace-agent-deployment" . | nindent 6 }}
         {{- if eq  (include "should-enable-fips" .) "true" }}
           {{- include "fips-proxy" . | nindent 6 }}
         {{- end }}
@@ -188,5 +186,6 @@ spec:
       {{- if .Values.agents.nodeSelector }}
 {{ toYaml .Values.agents.nodeSelector | indent 8 }}
       {{- end }}
+{{ end }}
 {{ end }}
 {{ end }}

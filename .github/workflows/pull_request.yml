@@ -2,6 +2,9 @@ name: Helm Check
 
 on: pull_request
 
+env:
+  HELM_CHARTS: "spartan datadog"
+
 jobs:
   helm-check:
     runs-on: ubuntu-latest
@@ -27,4 +30,8 @@ jobs:
 
       - name: Run helm-unittest
         run: |
-          helm unittest charts/spartan
+          for chart in $HELM_CHARTS
+          do
+            echo "Running unittest for ${chart} chart"
+            helm unittest "charts/${chart}"
+          done

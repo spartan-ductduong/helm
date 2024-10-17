@@ -186,6 +186,9 @@ workers: {}
   #   replicaCount: 1
   #   terminationGracePeriodSeconds: 180
   #   resources: {}
+  #   customImage:
+  #     enabled: false
+  #     image: busybox
   #   podAnnotations: {}
   #   autoscaling:
   #     enabled: true

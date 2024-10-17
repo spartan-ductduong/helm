@@ -42,13 +42,19 @@ spec:
       {{- end }}
       containers:
         - name: {{ include "spartan.containerName" . }}
+          {{- if .worker.command }}
           command:
             - {{ default "/bin/sh" .worker.shell }}
             - -c
             - {{ .worker.command }}
+          {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if and (.worker.customImage) (.worker.customImage.enabled) }}
+          image: {{ .worker.customImage.image }}
+          {{- else }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             {{- toYaml .worker.resources | nindent 12 }}

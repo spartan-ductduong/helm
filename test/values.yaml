@@ -203,6 +203,9 @@ workers:
   - name: worker-1
     shell: /bin/bash
     command: "echo worker-1"
+    customImage:
+      enabled: true
+      image: busybox
     replicaCount: 1
     terminationGracePeriodSeconds: 180
     resources: {}

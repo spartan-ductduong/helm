@@ -175,3 +175,30 @@ Get list of resources type
 {{- $resources = uniq $resources }}
 {{- join "," $resources | trimPrefix "," }}
 {{- end }}
+
+{{/*
+Merge extraEnvs
+*/}}
+{{- define "spartan.extraEnvs" -}}
+  {{- $lists := .lists -}}
+  {{- $merged := list -}}
+  {{- range $list := $lists -}}
+    {{- range $item := $list -}}
+      {{- $exists := false -}}
+      {{- $updatedMerged := list -}}
+      {{- range $existing := $merged -}}
+        {{- if eq $item.name $existing.name -}}
+          {{- $exists = true -}}
+          {{- $updatedMerged = append $updatedMerged $item -}}
+        {{- else -}}
+          {{- $updatedMerged = append $updatedMerged $existing -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if not $exists -}}
+        {{- $updatedMerged = append $updatedMerged $item -}}
+      {{- end -}}
+      {{- $merged = $updatedMerged -}}
+    {{- end -}}
+  {{- end -}}
+  {{- toYaml $merged }}
+{{- end -}}

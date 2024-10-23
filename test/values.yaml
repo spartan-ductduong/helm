@@ -210,6 +210,9 @@ workers:
     terminationGracePeriodSeconds: 180
     resources: {}
     podAnnotations: {}
+    extraEnvs:
+      - name: SERVICE
+        value: worker
 
 hooks:
   - name: "ls"
@@ -225,19 +228,25 @@ hooks:
     podAnnotations: {}
     restartPolicy: Never
     backoffLimit: 0
+    extraEnvs:
+      - name: SERVICE
+        value: hook
 
 cronjobs:
- - name: "cleanup"
-   schedule: "0 * * * *"
-   shell: /bin/bash
-   commands:
-     - ls -la
-   resources: {}
-   customImage:
-     enabled: true
-     image: busybox
-   podAnnotations: {}
-   restartPolicy: Never
+  - name: "cleanup"
+    schedule: "0 * * * *"
+    shell: /bin/bash
+    commands:
+      - ls -la
+    resources: {}
+    customImage:
+      enabled: true
+      image: busybox
+    podAnnotations: {}
+    restartPolicy: Never
+    extraEnvs:
+      - name: SERVICE
+        value: cronjob
 
 sidecars:
   - name: datadog-agent
@@ -251,6 +260,9 @@ sidecars:
         protocol: TCP
     sharedVolume:
       mountPath: /var/log/application/
+    extraEnvs:
+      - name: SERVICE
+        value: sidecar
 
   - name: busybox
     image: busybox

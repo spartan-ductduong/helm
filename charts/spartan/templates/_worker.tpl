@@ -95,9 +95,7 @@ spec:
             - name: DD_CLUSTER_AGENT_ENABLED
               value: "true"
           {{- end }}
-          {{- if .Values.extraEnvs -}}
-          {{ toYaml .Values.extraEnvs | nindent 12 }}
-          {{- end }}
+          {{- include "spartan.extraEnvs" (dict "lists" (list .Values.extraEnvs .worker.extraEnvs)) | nindent 12 }}
           volumeMounts:
           {{- if .Values.secret.asFile.enabled }}
             - name: {{ include "spartan.secretAsFile" $ }}

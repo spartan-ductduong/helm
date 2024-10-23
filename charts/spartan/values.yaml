@@ -164,7 +164,6 @@ configMap:
   asEnv:
     enabled: false
     data: {}
-    # SERVICE_NAME: nginx
   externalConfigMapEnv:
     enabled: false
     name: external-config-map-env
@@ -175,11 +174,11 @@ configMap:
 
 extraEnvs: []
 #  - name: SERVICE
-#    value: nginx
+#    value: spartan
 #  - name: VERSION
 #    value: 1.0.0
 
-workers: {}
+workers: []
   # - name: worker-1
   #   shell: /bin/bash
   #   command: "echo worker-1"
@@ -196,34 +195,43 @@ workers: {}
   #     maxReplicas: 10
   #     targetCPUUtilizationPercentage: 80
   #     targetMemoryUtilizationPercentage: 80
+  #   extraEnvs: 
+  #     - name: SERVICE
+  #       value: worker
 
-hooks: {}
-#  - name: "ls"
-#    hookTypes: "post-install,post-upgrade"
-#    hookWeight: 0
-#    shell: /bin/bash
-#    commands:
-#      - ls -la
-#    resources: {}
-#    customImage:
-#      enabled: false
-#      image: busybox
-#    podAnnotations: {}
-#    restartPolicy: Never
-#    backoffLimit: 0
+hooks: 
+  # - name: "ls"
+  #   hookTypes: "post-install,post-upgrade"
+  #   hookWeight: 0
+  #   shell: /bin/bash
+  #   commands:
+  #     - ls -la
+  #   resources: {}
+  #   customImage:
+  #     enabled: false
+  #     image: busybox
+  #   podAnnotations: {}
+  #   restartPolicy: Never
+  #   backoffLimit: 0
+  #   extraEnvs: 
+  #   - name: SERVICE
+  #     value: hook
 
-cronjobs: {}
-#  - name: "cleanup"
-#    schedule: "0 * * * *"
-#    shell: /bin/bash
-#    commands:
-#      - ls -la
-#    resources: {}
-#    customImage:
-#      enabled: true
-#      image: busybox
-#    podAnnotations: {}
-#    restartPolicy: Never
+cronjobs: []
+  # - name: "cleanup"
+  #   schedule: "0 * * * *"
+  #   shell: /bin/bash
+  #   commands:
+  #     - ls -la
+  #   resources: {}
+  #   customImage:
+  #     enabled: true
+  #     image: busybox
+  #   podAnnotations: {}
+  #   restartPolicy: Never
+  #   extraEnvs: 
+  #   - name: SERVICE
+  #     value: cronjob
 
 sidecars: []
   # - name: datadog-agent
@@ -237,6 +245,9 @@ sidecars: []
   #       protocol: TCP
   #   sharedVolume:
   #     mountPath: /var/log/application/
+  #   extraEnvs:
+  #     - name: SERVICE
+  #       value: sidecar
 
   # - name: busybox
   #   image: busybox
@@ -250,7 +261,7 @@ sidecars: []
   #     limits:
   #       memory: 100Mi
   #       cpu: 10m
-  #    shell: /bin/bash
+  #   shell: /bin/bash
   #   command: "echo $(date) INFO hello >> /tmp/data/myapp.log && sleep 3"
 
 # This field supports the datadog agent as sidecar pattern

@@ -1,3 +1,4 @@
 {{- range .Values.workers }}
   {{- include "spartan.worker" (dict "worker" . "Values" $.Values "Chart" $.Chart "Release" $.Release) }}
+---
 {{- end }}

@@ -7,6 +7,8 @@ metadata:
 data:
   initialize.sh: |
     #!/bin/sh
+    ulimit -n 65535
+    
     SET_INDEX=${HOSTNAME##*-}
     {{- if and (.Values.snapshotRestoration.enabled) (eq (.Values.replicaCount | quote)  (1 | quote)) }}
     echo "Starting initializing for pod $SET_INDEX and snapshots restoration"

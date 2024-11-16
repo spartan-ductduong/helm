@@ -3,7 +3,7 @@ entries:
   datadog:
   - apiVersion: v1
     appVersion: "7"
-    created: "2024-11-16T17:19:31.522925971Z"
+    created: "2024-11-16T17:34:08.026090433Z"
     dependencies:
     - condition: clusterAgent.metricsProvider.useDatadogMetrics
       name: datadog-crds
@@ -16,7 +16,7 @@ entries:
       repository: https://prometheus-community.github.io/helm-charts
       version: 2.13.2
     description: Datadog Agent
-    digest: cc5d35320a369333b60f7ed0a0b57e696e25a30f4b6097c1c31113b09f0cb6ac
+    digest: 4fe83e19ceb6e0168beea3ee590c40bd55680f122887254737e925396474c665
     home: https://www.datadoghq.com
     icon: https://datadog-live.imgix.net/img/dd_logo_70x75.png
     keywords:
@@ -35,7 +35,7 @@ entries:
     version: 1.0.1
   - apiVersion: v1
     appVersion: "7"
-    created: "2024-11-16T17:19:31.514892813Z"
+    created: "2024-11-16T17:34:08.012033855Z"
     dependencies:
     - condition: clusterAgent.metricsProvider.useDatadogMetrics
       name: datadog-crds
@@ -68,7 +68,28 @@ entries:
   qdrant:
   - apiVersion: v2
     appVersion: v1.12.2
-    created: "2024-11-16T17:19:31.52378797Z"
+    created: "2024-11-16T17:34:08.027989879Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 106ae3e5b1d8bc34dd0fd7fb4efefe8339fc323007191d63bc8c2774476a344a
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - qdrant-1.13.1.tgz
+    version: 1.13.1
+  - apiVersion: v2
+    appVersion: v1.12.2
+    created: "2024-11-16T17:34:08.027041238Z"
     description: Qdrant - Vector Database for the next generation of AI applications.
     digest: 7df4d34762906c4b35836e3491657768e117bc2651e1ce12a4fc8537522a188c
     home: https://qdrant.tech
@@ -90,7 +111,7 @@ entries:
   spartan:
   - apiVersion: v2
     appVersion: 1.1.3
-    created: "2024-11-16T17:19:31.536273999Z"
+    created: "2024-11-16T17:34:08.041611903Z"
     description: A Helm chart for Kubernetes
     digest: 5cedb63eafcf9aefa6228c0190896c86dbd6991f493812c94b681d6a2025b3df
     name: spartan
@@ -100,7 +121,7 @@ entries:
     version: 1.1.3
   - apiVersion: v2
     appVersion: 1.1.2
-    created: "2024-11-16T17:19:31.53554031Z"
+    created: "2024-11-16T17:34:08.040571277Z"
     description: A Helm chart for Kubernetes
     digest: 8f2fefbf7fd60f0120566f4b716ad0526cefad0567f1aa9d9cf95e27f8624647
     name: spartan
@@ -110,7 +131,7 @@ entries:
     version: 1.1.2
   - apiVersion: v2
     appVersion: 1.1.1
-    created: "2024-11-16T17:19:31.534725458Z"
+    created: "2024-11-16T17:34:08.039856422Z"
     description: A Helm chart for Kubernetes
     digest: 431749e9e5bdb40953ebf8e9ba6842e30cfae26f29c93183f0a1f8b72b6acfa5
     name: spartan
@@ -120,7 +141,7 @@ entries:
     version: 1.1.1
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2024-11-16T17:19:31.533995696Z"
+    created: "2024-11-16T17:34:08.03912174Z"
     description: A Helm chart for Kubernetes
     digest: c0c1c2a34de03be84047e003408b9721f1a9d111a5d5468d18c2687b38f2bf8c
     name: spartan
@@ -130,7 +151,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 1.0.10
-    created: "2024-11-16T17:19:31.526824829Z"
+    created: "2024-11-16T17:34:08.03191116Z"
     description: A Helm chart for Kubernetes
     digest: b9d543583b4cab287d6d9612689ba736f2bd32d93ada773d5e57b6226b0e3f3a
     name: spartan
@@ -140,7 +161,7 @@ entries:
     version: 1.0.10
   - apiVersion: v2
     appVersion: 1.0.9
-    created: "2024-11-16T17:19:31.533296801Z"
+    created: "2024-11-16T17:34:08.038260643Z"
     description: A Helm chart for Kubernetes
     digest: e1c9d638d476b77a05809361519f2a3ae73c5f1e62bd2afcfe852004518b2a5e
     name: spartan
@@ -150,7 +171,7 @@ entries:
     version: 1.0.9
   - apiVersion: v2
     appVersion: 1.0.8
-    created: "2024-11-16T17:19:31.532666405Z"
+    created: "2024-11-16T17:34:08.037645334Z"
     description: A Helm chart for Kubernetes
     digest: b446ef5c4ff3d1a4b630f13091df4b002d8c3cd5543b4b5954407d13eabdce7b
     name: spartan
@@ -160,7 +181,7 @@ entries:
     version: 1.0.8
   - apiVersion: v2
     appVersion: 1.0.7
-    created: "2024-11-16T17:19:31.532009759Z"
+    created: "2024-11-16T17:34:08.037012352Z"
     description: A Helm chart for Kubernetes
     digest: e42cac2e2c288339683d82136d9711f2a184f733d803a6d0d4f4e34e5a101f12
     name: spartan
@@ -170,7 +191,7 @@ entries:
     version: 1.0.7
   - apiVersion: v2
     appVersion: 1.0.6
-    created: "2024-11-16T17:19:31.530543522Z"
+    created: "2024-11-16T17:34:08.036385141Z"
     description: A Helm chart for Kubernetes
     digest: dd800ad50ab2d8098f102224887a5675d0d3c5f95f5d3a19ffc87f90682da852
     name: spartan
@@ -180,7 +201,7 @@ entries:
     version: 1.0.6
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2024-11-16T17:19:31.529200935Z"
+    created: "2024-11-16T17:34:08.035783347Z"
     description: A Helm chart for Kubernetes
     digest: f04f9ab320c509d2e6d5ebe555fca9d0b192fbf986b6a9e8b699575b0bc78bc2
     name: spartan
@@ -190,7 +211,7 @@ entries:
     version: 1.0.5
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-11-16T17:19:31.528616133Z"
+    created: "2024-11-16T17:34:08.034506343Z"
     description: A Helm chart for Kubernetes
     digest: e6b301406e72b4b45542305024fdf3e3248d9744fc223b30b2a4e4ba9f09215f
     name: spartan
@@ -200,7 +221,7 @@ entries:
     version: 1.0.4
   - apiVersion: v2
     appVersion: 1.0.3
-    created: "2024-11-16T17:19:31.528036191Z"
+    created: "2024-11-16T17:34:08.033083209Z"
     description: A Helm chart for Kubernetes
     digest: 91e0f788fd3ff519ada9665d471e810f8ad6070f42dd80667d0b6ba49b829855
     name: spartan
@@ -210,7 +231,7 @@ entries:
     version: 1.0.3
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2024-11-16T17:19:31.527430259Z"
+    created: "2024-11-16T17:34:08.032493247Z"
     description: A Helm chart for Kubernetes
     digest: 1f02bca9ddef7d77fc4be7c698ca64e6e43d2932b145fd75b25c5e49353619e1
     name: spartan
@@ -220,7 +241,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2024-11-16T17:19:31.526181087Z"
+    created: "2024-11-16T17:34:08.031245949Z"
     description: A Helm chart for Kubernetes
     digest: 7436d35a1a330c1faae115cf3656b8533b1f03dd6dfb6450a121c5a28c8b953e
     name: spartan
@@ -230,7 +251,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-11-16T17:19:31.525611995Z"
+    created: "2024-11-16T17:34:08.030650697Z"
     description: A Helm chart for Kubernetes
     digest: bdcb7bc5730b26d7b6e4f65c1bed4c9f189bd0164e3e7a61bde09371e1e86161
     name: spartan
@@ -240,7 +261,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2024-11-16T17:19:31.525045638Z"
+    created: "2024-11-16T17:34:08.030043784Z"
     description: A Helm chart for Kubernetes
     digest: fab37cc58d5eaf87286be799258c9e94440dac11cd77bc0461e7a8c4cfc5e1df
     name: spartan
@@ -249,8 +270,18 @@ entries:
     - spartan-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
+    appVersion: 0.0.3
+    created: "2024-11-16T17:34:08.029492465Z"
+    description: A Helm chart for Kubernetes
+    digest: c97baf8c9434ca1ac6083d29037ecb54d098ceba056f11873e6c11047f73a6de
+    name: spartan
+    type: application
+    urls:
+    - spartan-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
     appVersion: 0.0.2
-    created: "2024-11-16T17:19:31.524511641Z"
+    created: "2024-11-16T17:34:08.028748105Z"
     description: A Helm chart for Kubernetes
     digest: 5645bd1d6f159d09411038ca0a7cab86cfed5f839d82e014abf7934e6c7cf781
     name: spartan
@@ -258,4 +289,4 @@ entries:
     urls:
     - spartan-0.0.2.tgz
     version: 0.0.2
-generated: "2024-11-16T17:19:31.50701651Z"
+generated: "2024-11-16T17:34:08.003891346Z"

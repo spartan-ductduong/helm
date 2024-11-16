@@ -16,6 +16,7 @@ mkdir -p ./hosting
 
 helm package charts/spartan -d ./hosting
 helm package charts/datadog -d ./hosting
+helm package charts/qdrant -d ./hosting
 helm repo index hosting --merge ./hosting/index.yaml
 
 git add ./hosting
